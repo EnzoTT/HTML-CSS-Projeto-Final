@@ -35,6 +35,10 @@ li img {
 li a:hover {
   color: #be935f;
   font-weight: bold;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .number_of_items {
