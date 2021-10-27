@@ -20,7 +20,7 @@ li {
 }
 
 li a {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Noto Serif Display", serif;
   display: inline-block;
   padding: 3vh 3vh;
   color: white;
@@ -33,7 +33,7 @@ li img {
 }
 
 li a:hover {
-  color: #142427;
+  color: #be935f;
   font-weight: bold;
 }
 
@@ -46,8 +46,8 @@ li a:hover {
 
 .sobre {
   font-weight: bold;
-  color: #142427;
-  border-bottom: 2px solid #142427;
+  color: #be935f;
+  border-bottom: 2px solid #be935f;
   padding-bottom: 2vh;
 }
 
@@ -85,14 +85,14 @@ button:hover {
 .sobre-nos {
   padding-top: 6vh;
   padding-left: 20vh;
-  font-family: 'Noto Serif Display', serif;
+  font-family: "Noto Serif Display", serif;
   font-size: 6vh;
   color: white;
 }
 
-h1{
+h1 {
   padding-left: 1vh;
-  font-family: 'Noto Serif Display', serif;
+  font-family: "Noto Serif Display", serif;
   color: white;
   font-size: 10vh;
 }
@@ -100,7 +100,7 @@ h1{
 address {
   padding-left: 20vh;
   line-height: 3vh;
-  font-family: 'Noto Serif Display', serif;
+  font-family: "Noto Serif Display", serif;
   color: white;
   font-size: 2vh;
 }
@@ -110,44 +110,48 @@ h2 {
   padding-left: 20vh;
   font-size: 3vh;
   color: white;
-  font-family: 'Noto Serif Display', serif;
+  font-family: "Noto Serif Display", serif;
 }
 
-a{
+a {
   text-decoration: none;
   color: white;
 }
 
-.compre-agora{
-  border: 5px solid #BE935F;
-  background-color: #BE935F;
+.compre-agora {
+  border: 5px solid #be935f;
+  background-color: #be935f;
   font-size: 2vh;
   color: white;
-  font-family: 'Noto Serif Display', serif;
+  font-family: "Noto Serif Display", serif;
 }
 
-.entre-contato{
+.entre-contato {
   padding: 6px;
-  border: 1px solid #BE935F;
+  border: 1px solid #be935f;
   background-color: none;
   font-size: 2vh;
   color: white;
-  font-family: 'Noto Serif Display', serif;
+  font-family: "Noto Serif Display", serif;
 }
 
-.onde-estamos{
+.onde-estamos {
   padding-top: 50px;
   padding-left: 20vh;
   background-color: none;
   font-size: 2.5vh;
   color: white;
-  font-family: 'Noto Serif Display', serif;
+  font-family: "Noto Serif Display", serif;
 }
 
-.plant-image img{
+.plant-image img {
   float: right;
   width: 30%;
   padding-right: 10vh;
+}
+
+*:focus {
+  outline: none;
 }
 
 .animation {
@@ -159,26 +163,46 @@ a{
 }
 
 @keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-moz-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-o-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-ms-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

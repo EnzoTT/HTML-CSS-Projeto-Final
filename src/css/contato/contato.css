@@ -44,11 +44,17 @@ li a:hover {
   font-size: 2.2vh;
 }
 
-.home {
+.contato-bar {
+  display: inline-block;
   font-weight: bold;
   color: #be935f;
   border-bottom: 2px solid #be935f;
   padding-bottom: 2vh;
+}
+
+.logo-image {
+  padding-right: 20vh;
+  float: right;
 }
 
 .search {
@@ -68,13 +74,75 @@ input {
 
 ::placeholder {
   color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  padding-left: 1vh;
+  font-family: "Noto Serif Display", serif;
+  color: white;
+  font-size: 10vh;
+}
+
+.contato {
+  padding-top: 6vh;
+  padding-left: 20vh;
+  font-family: "Noto Serif Display", serif;
+  font-size: 6vh;
+  color: white;
+}
+
+.nome {
+  font-family: "Noto Serif Display", serif;
+  font-size: 2vh;
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #be935f;
+  padding: 10px 100px 10px 7px;
+}
+
+.email {
+  font-family: "Noto Serif Display", serif;
+  font-size: 2vh;
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #be935f;
+  padding: 10px 100px 10px 7px;
+}
+
+.assunto {
+  font-family: "Noto Serif Display", serif;
+  font-size: 2vh;
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #be935f;
+  padding: 10px 100px 10px 7px;
+}
+
+.mensagem {
+  font-family: "Noto Serif Display", serif;
+  font-size: 2vh;
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #be935f;
+  padding-top: 50px;
+}
+
+.enviar {
+  border: 5px solid #be935f;
+  background-color: #be935f;
+  font-size: 2vh;
+  color: white;
   font-family: "Noto Serif Display", serif;
 }
 
 button {
   background: none;
   border: none;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: white;
 }
 
@@ -82,8 +150,17 @@ button:hover {
   cursor: pointer;
 }
 
+textarea {
+  resize: none;
+}
+
 *:focus {
   outline: none;
+}
+
+::placeholder {
+  color: white;
+  font-family: "Noto Serif Display", serif;
 }
 
 .animation {
