@@ -61,6 +61,34 @@
           <a href="./index.html">Home</a>
         </li>
       </div>
+      <div class="categorias">
+        <div>
+          <h1>ADMINISTRAÇÃO DE CATEGORIAS</h1>
+          <div>
+            <form onsubmit="event.preventDefault();">
+              <input
+                type="text"
+                name="elemento"
+                id="categoryName"
+                placeholder="Nova categoria"
+                class="search"
+              />
+              <input type="submit" value="Adicionar" class="submit-input" id='submit'/>
+            </form>
+          </div>
+        </div>
+          <table id='categoryTable'>
+            <tr>
+              <th>Nome</th>
+              <th>ID</th>
+            </tr>
+            <tbody>
+
+            </tbody>
+          </table>
+      </div>
     </div>
+
+    <script src="./scripts/admin.js"></script>
   </body>
 </html>
