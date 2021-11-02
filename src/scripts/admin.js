@@ -163,8 +163,8 @@ function insertNewProductRecord(data) {
       ? data["product-description"].substring(0, 15) + "..."
       : data["product-description"];
   cell7 = newRow.insertCell(7);
-  cell7.innerHTML = `<a onClick="" id='config'>Editar</a>
-  <a onClick="" id='config'>Deletar</a>`;
+  cell7.innerHTML = `<a onClick="editProductRecord(this)" id='config'>Editar</a>
+  <a onClick="deleteProduct(this);" id='config'>Deletar</a>`;
 }
 
 function isValidProductForm() {
@@ -179,4 +179,11 @@ function isValidProductForm() {
     return true;
   }
   return false;
+}
+
+function deleteProduct(data) {
+  if (confirm("Tem certeza que deseja deletar este produto?")) {
+    selectedRow = data.parentElement.parentElement;
+    document.getElementById("productsTable").deleteRow(selectedRow.rowIndex);
+  }
 }
