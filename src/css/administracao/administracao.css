@@ -143,6 +143,8 @@ button:hover {
     opacity: 1;
   }
 }
+
+/* Categoria Styles */
 .categorias {
   color: white;
   font-size: 2.1vh;
@@ -153,7 +155,6 @@ button:hover {
 
 .categorias h1 {
   font-weight: 700;
-  /* background-color: #be935f; */
   border-bottom: solid 5px white;
 
   color: white;
@@ -161,30 +162,6 @@ button:hover {
   font-family: "Noto Serif Display", serif;
   letter-spacing: 4px;
   padding: 20px 10px;
-}
-
-.submit-input {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  font-size: 2.1vh;
-  margin-top: 2.2vh;
-  padding-bottom: 2vh;
-  border: none;
-  color: #be935f;
-  border-bottom: solid 2px #be935f;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.submit-input:hover {
-  opacity: 0.8;
-}
-
-form {
-  display: flex;
-  align-items: center;
 }
 
 .categorias table {
@@ -217,4 +194,126 @@ tr:nth-child(even) {
 }
 #config:hover {
   opacity: 0.7;
+}
+
+.submit-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  font-size: 2.1vh;
+  margin-top: 2.2vh;
+  padding-bottom: 2vh;
+  border: none;
+  color: #be935f;
+  border-bottom: solid 2px #be935f;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.submit-input:hover {
+  opacity: 0.8;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+.produtos {
+  color: white;
+  font-size: 2.1vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.produtos h1 {
+  font-weight: 700;
+  border-bottom: solid 5px white;
+
+  color: white;
+  font-size: 2.5vh;
+  font-family: "Noto Serif Display", serif;
+  letter-spacing: 4px;
+  padding: 20px 10px;
+}
+
+.form-modal {
+  background-color: rgba(20, 36, 39, 0.9);
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+}
+
+.form-produtos {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background-color: #234948;
+
+  padding: 20px 60px;
+}
+
+.close-modal {
+  font-size:3.5vh;
+  font-weight: 700;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.close-modal:hover {
+  color: #be935f;
+}
+
+textarea {
+  resize: none;
+  border: none;
+  border-bottom: solid 2px white;
+  background-color: transparent;
+  font-size: 2.1vh;
+  margin-top: 2.2vh;
+  color:white;
+}
+.form-input {
+  width: 100%;
+  margin-top: 2.2vh;
+  padding-bottom: 2vh;
+  border: none;
+  border-bottom: white 2px solid;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  background: none;
+  font-size: 2.1vh;
+}
+
+select option{
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #3c7264;
+}
+
+.produtos table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid white;
+  margin-top: 20px;
+}
+
+.produtos td {
+  border: 1px solid white;
+  text-align: left;
+  padding: 10px;
+}
+.produtos th {
+  font-weight: 700;
+  text-align: left;
+  padding: 15px;
+}
+tr:nth-child(even) {
+  background-color: #be935f;
 }

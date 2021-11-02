@@ -1,5 +1,6 @@
-const elementoForm = document.querySelector("form");
-elementoForm.addEventListener("submit", onFormSubmit);
+//Categoria
+const categoryForm = document.getElementById("category-form");
+categoryForm.addEventListener("submit", onFormSubmit);
 
 let selectedRow = null;
 let id_increment = 1;
@@ -55,4 +56,127 @@ function onDelete(td) {
     document.getElementById("categoryTable").deleteRow(row.rowIndex);
     resetForm();
   }
+}
+
+//Produtos
+const productForm = document.getElementById("form-produtos");
+productForm.addEventListener("submit", onProductFormSubmit);
+
+function openModal() {
+  const categorias = getAllCategory();
+  if (categorias.length !== 0) {
+    mountSelect(categorias);
+    document.getElementById("form-modal").style.display = "flex";
+    return;
+  }
+  alert("Você não possui nenhuma categoria cadastrada!");
+}
+function closeModal() {
+  document.getElementById("form-modal").style.display = "none";
+  resetProductForm();
+}
+
+function getAllCategory() {
+  let table = document.getElementById("categoryTable");
+  let categorias = [];
+  for (var i = 1, row; (row = table.rows[i]); i++) {
+    categorias.push({
+      nome: row.cells[0].innerText,
+      id: row.cells[1].innerText,
+    });
+  }
+  return categorias;
+}
+
+function mountSelect(categorias) {
+  const categorySelect = document.getElementById("category-select");
+  removeOptions(categorySelect);
+  categorias.forEach((categoria) => {
+    option = new Option(categoria.nome, categoria.nome);
+    categorySelect.options[categorySelect.options.length] = option;
+  });
+}
+
+function removeOptions(selectElement) {
+  var i,
+    length = selectElement.options.length - 1;
+  for (i = length; i >= 1; i--) {
+    selectElement.remove(i);
+  }
+}
+
+function resetProductForm() {
+  document.getElementById("productName").value = "";
+  document.getElementById("productCode").value = "";
+  document.getElementById("productPrice").value = "";
+  document.getElementById("ProductWeight").value = "";
+  document.getElementById("productImage").value = "";
+  document.getElementById("category-select").value = "";
+  document.getElementById("submit-product").value = "Adicionar";
+}
+
+//Funcoes para handle tabela
+function onProductFormSubmit() {
+  if (isValidProductForm()) {
+    let formData = readProductFormData();
+    insertNewProductRecord(formData);
+    closeModal();
+  } else {
+    alert("Você deve preencher todos os campos!");
+  }
+}
+
+function readProductFormData() {
+  let formData = {};
+  formData["product-name"] = document.getElementById("productName").value;
+  formData["product-code"] = document.getElementById("productCode").value;
+  formData["product-price"] = document.getElementById("productPrice").value;
+  formData["product-weight"] = document.getElementById("ProductWeight").value;
+  formData["product-image"] = document.getElementById("productImage").value;
+  formData["product-description"] =
+    document.getElementById("productDescription").value;
+  formData["product-category"] =
+    document.getElementById("category-select").value;
+  return formData;
+}
+
+function insertNewProductRecord(data) {
+  var table = document
+    .getElementById("productsTable")
+    .getElementsByTagName("tbody")[0];
+  var newRow = table.insertRow(table.length);
+  cell1 = newRow.insertCell(0);
+  cell1.innerHTML = data["product-name"];
+  cell2 = newRow.insertCell(1);
+  cell2.innerHTML = data["product-code"];
+  cell3 = newRow.insertCell(2);
+  cell3.innerHTML = data["product-price"];
+  cell4 = newRow.insertCell(3);
+  cell4.innerHTML = data["product-weight"];
+  cell5 = newRow.insertCell(4);
+  cell5.innerHTML = data["product-image"];
+  cell6 = newRow.insertCell(5);
+  cell6.innerHTML = data["product-category"];
+  cell6 = newRow.insertCell(6);
+  cell6.innerHTML =
+    data["product-description"].length > 15
+      ? data["product-description"].substring(0, 15) + "..."
+      : data["product-description"];
+  cell7 = newRow.insertCell(7);
+  cell7.innerHTML = `<a onClick="" id='config'>Editar</a>
+  <a onClick="" id='config'>Deletar</a>`;
+}
+
+function isValidProductForm() {
+  if (
+    document.getElementById("productName").value !== "" &&
+    document.getElementById("productCode").value !== "" &&
+    document.getElementById("productPrice").value !== "" &&
+    document.getElementById("ProductWeight").value !== "" &&
+    document.getElementById("productImage").value !== "" &&
+    document.getElementById("category-select").value !== ""
+  ) {
+    return true;
+  }
+  return false;
 }

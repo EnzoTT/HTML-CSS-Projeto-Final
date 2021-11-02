@@ -1,94 +1,114 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Administracao– Harvest Plant Shop</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./css/administracao/administracao.css" />
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="icon" href="./img/administracao/harvest_only_logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="animation">
-      <div class="navbar">
-        <a href="" class="logo"
-          ><img src="./img/sobre/harvest_nome.png" alt=""
-        /></a>
 
-        <li>
-          <a href=""
-            ><img src="./img/sobre/icons8-shopping-cart-30.png" alt="" />
-            <p class="number_of_items">0</p>
-          </a>
-        </li>
-        <li>
-          <a href=""
-            ><img
-              src="https://icongr.am/material/account-circle.svg?size=30&color=ffffff"
-              alt=""
-          /></a>
-        </li>
-        <li>
-          <input type="text" class="search" placeholder="Buscar" />
-          <button type="submit" class="search-button">
-            <img src="icons8-search.svg" alt="" />
-          </button>
-        </li>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Administracao– Harvest Plant Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./css/administracao/administracao.css" />
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="icon" href="./img/administracao/harvest_only_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display&display=swap" rel="stylesheet" />
+</head>
 
-        <li>
-          <a href="./administracao.html" class="administracao">Administração</a>
-        </li>
-        <li>
-          <a href="./contato.html">Contato</a>
-        </li>
-        <li>
-          <a href="./sobre.html" class="sobre">Sobre</a>
-        </li>
-        <li>
-          <a href="./pedidos.html">Pedidos</a>
-        </li>
-        <li>
-          <a href="./produtos.html">Produtos</a>
-        </li>
-        <li>
-          <a href="./index.html">Home</a>
-        </li>
-      </div>
-      <div class="categorias">
+<body>
+  <div class="animation">
+    <div class="navbar">
+      <a href="" class="logo"><img src="./img/sobre/harvest_nome.png" alt="" /></a>
+
+      <li>
+        <a href=""><img src="./img/sobre/icons8-shopping-cart-30.png" alt="" />
+          <p class="number_of_items">0</p>
+        </a>
+      </li>
+      <li>
+        <a href=""><img src="https://icongr.am/material/account-circle.svg?size=30&color=ffffff" alt="" /></a>
+      </li>
+      <li>
+        <input type="text" class="search" placeholder="Buscar" />
+        <button type="submit" class="search-button">
+          <img src="icons8-search.svg" alt="" />
+        </button>
+      </li>
+
+      <li>
+        <a href="./administracao.html" class="administracao">Administração</a>
+      </li>
+      <li>
+        <a href="./contato.html">Contato</a>
+      </li>
+      <li>
+        <a href="./sobre.html" class="sobre">Sobre</a>
+      </li>
+      <li>
+        <a href="./pedidos.html">Pedidos</a>
+      </li>
+      <li>
+        <a href="./produtos.html">Produtos</a>
+      </li>
+      <li>
+        <a href="./index.html">Home</a>
+      </li>
+    </div>
+    <div class="categorias">
+      <div>
+        <h1>ADMINISTRAÇÃO DE CATEGORIAS</h1>
         <div>
-          <h1>ADMINISTRAÇÃO DE CATEGORIAS</h1>
-          <div>
-            <form onsubmit="event.preventDefault();">
-              <input
-                type="text"
-                name="elemento"
-                id="categoryName"
-                placeholder="Nova categoria"
-                class="search"
-              />
-              <input type="submit" value="Adicionar" class="submit-input" id='submit'/>
-            </form>
-          </div>
+          <form onsubmit="event.preventDefault();" id='category-form'>
+            <input type="text" name="elemento" id="categoryName" placeholder="Nova categoria" class="search" />
+            <input type="submit" value="Adicionar" class="submit-input" id='submit' />
+          </form>
         </div>
-          <table id='categoryTable'>
-            <tr>
-              <th>Nome</th>
-              <th>ID</th>
-            </tr>
-            <tbody>
-
-            </tbody>
-          </table>
       </div>
+      <table id='categoryTable'>
+        <tr>
+          <th>Nome</th>
+          <th>ID</th>
+        </tr>
+        <tbody>
+
+        </tbody>
+      </table>
     </div>
 
+    <div class="produtos">
+      <div>
+        <h1>ADMINISTRAÇÃO DE PRODUTOS</h1>
+        <button class="submit-input" onclick="openModal()">Adicionar produto</button>
+        <table id='productsTable'>
+          <tr>
+            <th>Nome</th>
+            <th>Código</th>
+            <th>Preço</th>
+            <th>Peso</th>
+            <th>Imagem</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+          </tr>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class='form-modal' id='form-modal'>
+      <button class="close-modal" onclick="closeModal()">X</button>
+      <form onsubmit="event.preventDefault();" class='form-produtos' id='form-produtos'>
+        <input type="text" name="productName" id="productName" placeholder="Nome do produto" class="form-input" />
+        <input type="number" name="productCode" id="productCode" placeholder="Código do produto" class="form-input" />
+        <input type="text" name="productPrice" id="productPrice" placeholder="Preço do produto" class="form-input" />
+        <input type="number" name="ProductWeight" id="ProductWeight" placeholder="Peso do produto" class="form-input" />
+        <input type="text" name="productImage" id="productImage" placeholder="Imagem do produto" class="form-input" />
+        <select id="category-select" class="form-input">
+          <option value="" disabled selected>Selecione uma categoria</option>
+        </select>
+        <textarea name="mensagem" placeholder="Descrição" id="productDescription" cols="50" rows="10" class="mensagem"></textarea>
+        <input type="submit" value="Adicionar" class="submit-input" id='submit-product' />
+      </form>
+    </div>
     <script src="./scripts/admin.js"></script>
-  </body>
+</body>
 </html>
