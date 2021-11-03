@@ -51,6 +51,7 @@ function updateRecord(data) {
 }
 
 function onDelete(td) {
+  
   if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
     row = td.parentElement.parentElement;
     document.getElementById("categoryTable").deleteRow(row.rowIndex);
@@ -150,7 +151,9 @@ function insertNewProductRecord(data) {
   cell2 = newRow.insertCell(1);
   cell2.innerHTML = data["product-code"];
   cell3 = newRow.insertCell(2);
-  cell3.innerHTML = data["product-price"];
+  let price = data["product-price"];
+  price = currencyFormatter(price);
+  cell3.innerHTML = price;
   cell4 = newRow.insertCell(3);
   cell4.innerHTML = data["product-weight"];
   cell5 = newRow.insertCell(4);
@@ -186,4 +189,13 @@ function deleteProduct(data) {
     selectedRow = data.parentElement.parentElement;
     document.getElementById("productsTable").deleteRow(selectedRow.rowIndex);
   }
+}
+
+function currencyFormatter(price) {
+  price = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(price);
+
+  return price;
 }
