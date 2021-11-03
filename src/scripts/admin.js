@@ -72,10 +72,10 @@ function openModal() {
   }
   alert("Você não possui nenhuma categoria cadastrada!");
 }
+
 function closeModal() {
   document.getElementById("form-modal").style.display = "none";
   resetProductForm();
-  
 }
 
 function getAllCategory() {
@@ -167,7 +167,7 @@ function insertNewProductRecord(data) {
       ? data["product-description"].substring(0, 15) + "..."
       : data["product-description"];
   cell7 = newRow.insertCell(7);
-  cell7.innerHTML = `<a onClick="editProductRecord(this)" id='config'>Editar</a>
+  cell7.innerHTML = `<a onClick="editProduct(this)" id='config'>Editar</a>
   <a onClick="deleteProduct(this);" id='config'>Deletar</a>`;
 }
 
