@@ -75,6 +75,7 @@ function openModal() {
 function closeModal() {
   document.getElementById("form-modal").style.display = "none";
   resetProductForm();
+  
 }
 
 function getAllCategory() {
