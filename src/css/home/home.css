@@ -14,10 +14,27 @@ body {
   width: 30vh;
 }
 
-li {
+.navbar li {
   float: right;
   list-style-type: none;
 }
+
+h1 {
+  padding-left: 5vh;
+  padding-top: 5vh;
+  font-family: "Noto Serif Display", serif;
+  color: white;
+  font-size: 15vh;
+}
+
+h2 {
+  padding-left: 5vh;
+  padding-top: 5vh;
+  font-family: "Noto Serif Display", serif;
+  color: white;
+  font-size: 10vh;
+}
+
 
 li a {
   font-family: "Noto Serif Display", serif;
@@ -55,6 +72,12 @@ li a:hover {
   padding-bottom: 2vh;
 }
 
+.logo-home {
+  padding-top: 5vh;
+  padding-left: 5vh;
+  width: 50vh;
+}
+
 .search {
   margin-top: 2.2vh;
   padding-bottom: 2vh;
@@ -88,6 +111,38 @@ button:hover {
 
 *:focus {
   outline: none;
+}
+
+.categories img{
+  width: 20vh;
+  height: 20vh;
+}
+
+.home-items{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5vh;
+}
+
+.boas-vindas{
+  flex-direction: row;
+  justify-content: center;
+  width: 50%;
+}
+
+.produtos-home{
+  flex-direction: row;
+  width: 50%;
+}
+
+.produtos-home img{
+  flex-direction: column;
+  border-radius: 7px;
+  float: right;
+  width: 20vh;
+  height: 20vh;
 }
 
 .animation {

@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="./css/administracao/administracao.css" />
   <link rel="stylesheet" href="./css/reset.css" />
-  <link rel="icon" href="./img/administracao/harvest_only_logo.png" />
+  <link rel="icon" href="./img/harvest_logo.png" />  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display&display=swap" rel="stylesheet" />
@@ -17,10 +17,10 @@
 <body>
   <div class="animation">
     <div class="navbar">
-      <a href="" class="logo"><img src="./img/sobre/harvest_nome.png" alt="" /></a>
+      <a href="" class="logo"><img src="./img/harvest_nome.png" alt="" /></a>
 
       <li>
-        <a href=""><img src="./img/sobre/icons8-shopping-cart-30.png" alt="" />
+        <a href=""><img src="./img/icone_carrinho.png" alt="" />
           <p class="number_of_items">0</p>
         </a>
       </li>
@@ -30,7 +30,7 @@
       <li>
         <input type="text" class="search" placeholder="Buscar" />
         <button type="submit" class="search-button">
-          <img src="icons8-search.svg" alt="" />
+          <img src="img/icone_busca.svg" alt="buscar" />
         </button>
       </li>
 
@@ -78,19 +78,8 @@
       <div>
         <h1>ADMINISTRAÇÃO DE PRODUTOS</h1>
         <button class="submit-input" onclick="openModal()">Adicionar produto</button>
+        <button class="fetch-data" onclick="fetchData()">Listar Produtos</button>
         <table id='productsTable'>
-          <tr>
-            <th>Nome</th>
-            <th>Código</th>
-            <th>Preço</th>
-            <th>Peso</th>
-            <th>Imagem</th>
-            <th>Categoria</th>
-            <th>Descrição</th>
-          </tr>
-          <tbody>
-
-          </tbody>
         </table>
       </div>
     </div>

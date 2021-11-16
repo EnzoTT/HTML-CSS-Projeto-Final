@@ -5,6 +5,67 @@ categoryForm.addEventListener("submit", onFormSubmit);
 let selectedRow = null;
 let id_increment = 1;
 
+function fetchData() {
+  const KEY = "aula"; // usada para testes, a chave do grupo é xc6iPDgo3w
+  const SAIDA = "json";
+  const COMANDO = "produto";
+  const OPCAO = "listar";
+  fetch(`http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      const dados = Object.keys(data.dados[0]);
+      generateTableHead(document.getElementById("productsTable"), dados);
+      generateTable(document.getElementById("productsTable"), data.dados);
+    });
+}
+
+function generateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    let text = document.createTextNode(key);
+    if (key === "id") {
+      text = document.createTextNode("ID");
+    } else if (key === "codigo") {
+      text = document.createTextNode("Código");
+    } else if (key === "categoria") {
+      text = document.createTextNode("Categoria");
+    } else if (key === "nome") {
+      text = document.createTextNode("Nome");
+    } else if (key === "descricao") {
+      text = document.createTextNode("Descrição");
+    } else if (key === "preco") {
+      text = document.createTextNode("Preço");
+    } else if (key === "imagem") {
+      text = document.createTextNode("Imagem");
+    } else if (key === "peso") {
+      text = document.createTextNode("Peso");
+    }
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+
+function generateTable(table, data) {
+  for (let element of data) {
+    let row = table.insertRow();
+    for (key in element) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(element[key]);
+      if (key === "preco") {
+        const price = currencyFormatter(element[key]);
+        text = document.createTextNode(price);
+      }
+      th.appendChild(text);
+      row.appendChild(th);
+    }
+    let td = document.createElement("td");
+    row.appendChild(td);
+  }
+}
+
 function onFormSubmit() {
   let formData = readFormData(selectedRow);
   if (formData.category && selectedRow === null) insertNewRecord(formData);
@@ -51,7 +112,6 @@ function updateRecord(data) {
 }
 
 function onDelete(td) {
-  
   if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
     row = td.parentElement.parentElement;
     document.getElementById("categoryTable").deleteRow(row.rowIndex);

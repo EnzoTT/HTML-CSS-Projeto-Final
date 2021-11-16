@@ -94,6 +94,11 @@ button:hover {
   color: white;
 }
 
+.logo-image {
+  padding-right: 20vh;
+  float: right;
+}
+
 h1 {
   padding-left: 1vh;
   font-family: "Noto Serif Display", serif;
