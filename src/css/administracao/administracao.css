@@ -156,7 +156,6 @@ button:hover {
 .categorias h1 {
   font-weight: 700;
   border-bottom: solid 5px white;
-
   color: white;
   font-size: 2.5vh;
   font-family: "Noto Serif Display", serif;
@@ -211,25 +210,6 @@ tr:nth-child(even) {
   transition: 0.2s;
 }
 .submit-input:hover {
-  opacity: 0.8;
-}
-
-.fetch-data{
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  font-size: 2.1vh;
-  margin-top: 2.2vh;
-  padding-bottom: 2vh;
-  border: none;
-  color: #be935f;
-  border-bottom: solid 2px #be935f;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.fetch-data:hover {
   opacity: 0.8;
 }
 

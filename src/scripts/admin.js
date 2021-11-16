@@ -5,6 +5,8 @@ categoryForm.addEventListener("submit", onFormSubmit);
 let selectedRow = null;
 let id_increment = 1;
 
+window.onload = fetchData();
+
 function fetchData() {
   const KEY = "aula"; // usada para testes, a chave do grupo é xc6iPDgo3w
   const SAIDA = "json";
