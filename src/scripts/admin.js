@@ -1,14 +1,161 @@
+window.onload = () => {
+  fetchCategoryData();
+  fetchProductData();
+};
+//API function
+function loadJSON(callback, url) {
+  console.log(url);
+  var obj = new XMLHttpRequest();
+  obj.overrideMimeType("application/json");
+  obj.open("GET", url, true);
+  obj.onreadystatechange = function () {
+    if (obj.readyState == 4 && obj.status == "200") {
+      callback(JSON.parse(obj.responseText));
+    }
+  };
+  obj.send(null);
+}
+
 //Categoria
 const categoryForm = document.getElementById("category-form");
-categoryForm.addEventListener("submit", onFormSubmit);
+categoryForm.addEventListener("submit", onCategoryFormSubmit);
 
 let selectedRow = null;
 let id_increment = 1;
 
-window.onload = fetchData();
+function generateCategoryTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    let text = document.createTextNode(key);
+    if (key === "id") {
+      text = document.createTextNode("ID");
+    } else if (key === "nome") {
+      text = document.createTextNode("Nome");
+    }
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
 
-function fetchData() {
-  const KEY = "aula"; // usada para testes, a chave do grupo é xc6iPDgo3w
+function generateCategoryTable(table, data) {
+  for (let element of data) {
+    let row = table.insertRow();
+    for (key in element) {
+      let th = document.createElement("th");
+      let text = document.createTextNode(element[key]);
+      th.appendChild(text);
+      row.appendChild(th);
+    }
+    let td = document.createElement("td");
+    row.appendChild(td);
+    td.innerHTML = `<a onClick="onEditCategory(this)" id='config'>Editar</a>
+    <a onClick="onDeleteCategory(this);" id='config'>Deletar</a>`;
+  }
+}
+
+let categorysData = {};
+function fetchCategoryData() {
+  document.getElementById("categoryTable").innerHTML = "";
+  const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
+  const SAIDA = "json";
+  const COMANDO = "categoria";
+  const OPCAO = "listar";
+  fetch(`http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        console.log(data.dados.length);
+        categorysData = data.dados;
+        const dados = Object.keys(data.dados[0]);
+        generateCategoryTableHead(
+          document.getElementById("categoryTable"),
+          dados
+        );
+        generateCategoryTable(
+          document.getElementById("categoryTable"),
+          data.dados
+        );
+      }
+    });
+}
+function onCategoryFormSubmit() {
+  //Adicionar Categoria
+  let formData = readCategoryFormData();
+  if (document.getElementById("submit").value !== "Editar") {
+    const KEY = "xc6iPDgo3w";
+    const COMANDO = "categoria";
+    const OPCAO = "inserir";
+    loadJSON((any) => {},
+    `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&nome=${formData["category"]}`);
+    fetchCategoryData();
+    return;
+  }
+  editCategory(formData["category"]);
+  console.log("Editei");
+}
+
+function editCategory(nome) {selectedRow.cells[1].innerHTML;
+  ("categoria");
+  const KEY = "xc6iPDgo3w";
+  const COMANDO = "categoria";
+  const OPCAO = "alterar";
+  loadJSON((any) => {},
+  `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${editCategoryId}&nome=${nome}`);
+  fetchCategoryData();
+  resetForm();
+}
+
+function resetForm() {
+  document.getElementById("categoryName").value = "";
+  document.getElementById("submit").value = "Adicionar";
+}
+
+function readCategoryFormData() {
+  let formData = {};
+  formData["category"] = document.getElementById("categoryName").value;
+  return formData;
+}
+
+let editCategoryId;
+//Editar Categoria
+function onEditCategory(td) {
+  document.getElementById("submit").value = "Editar";
+  selectedRow = td.parentElement.parentElement;
+  document.getElementById("categoryName").value =
+    selectedRow.cells[1].innerHTML;
+  editCategoryId = selectedRow.cells[0].innerHTML;
+}
+
+function updateRecord(data) {
+  selectedRow.cells[0].innerHTML = data.category;
+  selectedRow = null;
+}
+//Deletar Categoria
+function onDeleteCategory(td) {
+  if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
+    row = td.parentElement.parentElement;
+    idToDelete = row.cells[0].innerHTML;
+    const KEY = "xc6iPDgo3w";
+    const COMANDO = "categoria";
+    const OPCAO = "remover";
+    loadJSON((any) => {},
+    `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${idToDelete}`);
+    fetchCategoryData();
+  }
+}
+function isCategoryEmpty() {
+  return categorysData.length > 0;
+}
+
+//Produtos
+const productForm = document.getElementById("form-produtos");
+productForm.addEventListener("submit", onProductFormSubmit);
+
+function fetchProductData() {
+  document.getElementById("productsTable").innerHTML = "";
+  const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
   const SAIDA = "json";
   const COMANDO = "produto";
   const OPCAO = "listar";
@@ -17,12 +164,15 @@ function fetchData() {
     .then((data) => {
       console.log(data);
       const dados = Object.keys(data.dados[0]);
-      generateTableHead(document.getElementById("productsTable"), dados);
-      generateTable(document.getElementById("productsTable"), data.dados);
+      generateProductTableHead(document.getElementById("productsTable"), dados);
+      generateProductTable(
+        document.getElementById("productsTable"),
+        data.dados
+      );
     });
 }
 
-function generateTableHead(table, data) {
+function generateProductTableHead(table, data) {
   let thead = table.createTHead();
   let row = thead.insertRow();
   for (let key of data) {
@@ -50,12 +200,16 @@ function generateTableHead(table, data) {
   }
 }
 
-function generateTable(table, data) {
+function generateProductTable(table, data) {
   for (let element of data) {
     let row = table.insertRow();
     for (key in element) {
       let th = document.createElement("th");
-      let text = document.createTextNode(element[key]);
+      let text = document.createTextNode(
+        element[key].length > 10
+          ? element[key].substring(0, 10) + "..."
+          : element[key]
+      );
       if (key === "preco") {
         const price = currencyFormatter(element[key]);
         text = document.createTextNode(price);
@@ -65,70 +219,14 @@ function generateTable(table, data) {
     }
     let td = document.createElement("td");
     row.appendChild(td);
+    td.innerHTML = `<a onClick="editProduct(this)" id='config'>Editar</a>
+    <a onClick="deleteProduct(this);" id='config'>Deletar</a>`;
   }
 }
-
-function onFormSubmit() {
-  let formData = readFormData(selectedRow);
-  if (formData.category && selectedRow === null) insertNewRecord(formData);
-  else updateRecord(formData);
-  resetForm();
-}
-
-function readFormData(selectedRow) {
-  let formData = {};
-  formData["category"] = document.getElementById("categoryName").value;
-  if (!selectedRow) formData["id"] = `${id_increment++}`;
-  return formData;
-}
-
-function insertNewRecord(data) {
-  var table = document
-    .getElementById("categoryTable")
-    .getElementsByTagName("tbody")[0];
-  var newRow = table.insertRow(table.lenght);
-  cell1 = newRow.insertCell(0);
-  cell1.innerHTML = data.category;
-  cell2 = newRow.insertCell(1);
-  cell2.innerHTML = data.id;
-  cell3 = newRow.insertCell(2);
-  cell3.innerHTML = `<a onClick="onEdit(this)" id='config'>Editar</a>
-  <a onClick="onDelete(this)" id='config'>Deletar</a>`;
-}
-
-function onEdit(td) {
-  document.getElementById("submit").value = "Editar";
-  selectedRow = td.parentElement.parentElement;
-  document.getElementById("categoryName").value =
-    selectedRow.cells[0].innerHTML;
-}
-
-function resetForm() {
-  document.getElementById("categoryName").value = "";
-  document.getElementById("submit").value = "Adicionar";
-}
-
-function updateRecord(data) {
-  selectedRow.cells[0].innerHTML = data.category;
-  selectedRow = null;
-}
-
-function onDelete(td) {
-  if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
-    row = td.parentElement.parentElement;
-    document.getElementById("categoryTable").deleteRow(row.rowIndex);
-    resetForm();
-  }
-}
-
-//Produtos
-const productForm = document.getElementById("form-produtos");
-productForm.addEventListener("submit", onProductFormSubmit);
 
 function openModal() {
-  const categorias = getAllCategory();
-  if (categorias.length !== 0) {
-    mountSelect(categorias);
+  if (isCategoryEmpty()) {
+    mountSelect(categorysData);
     document.getElementById("form-modal").style.display = "flex";
     return;
   }
@@ -140,23 +238,11 @@ function closeModal() {
   resetProductForm();
 }
 
-function getAllCategory() {
-  let table = document.getElementById("categoryTable");
-  let categorias = [];
-  for (var i = 1, row; (row = table.rows[i]); i++) {
-    categorias.push({
-      nome: row.cells[0].innerText,
-      id: row.cells[1].innerText,
-    });
-  }
-  return categorias;
-}
-
 function mountSelect(categorias) {
   const categorySelect = document.getElementById("category-select");
   removeOptions(categorySelect);
   categorias.forEach((categoria) => {
-    option = new Option(categoria.nome, categoria.nome);
+    option = new Option(categoria.nome, categoria.id);
     categorySelect.options[categorySelect.options.length] = option;
   });
 }
@@ -183,7 +269,21 @@ function resetProductForm() {
 function onProductFormSubmit() {
   if (isValidProductForm()) {
     let formData = readProductFormData();
-    insertNewProductRecord(formData);
+    console.log(formData);
+    const KEY = "xc6iPDgo3w";
+    const COMANDO = "produto";
+    const OPCAO = "inserir";
+    console.log(`http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}
+    &nome=${formData["product-name"]}
+    &categoria=${formData["product-category"]}
+    &descricao${formData["product-description"]}
+    &preco=${formData["product-price"]}
+    &imagem=${formData["product-image"]}
+    &peso=${formData["product-weight"]}`);
+    loadJSON((any) => {
+      console.log(any);
+    }, `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&nome=${formData["product-name"]}&categoria=${formData["product-category"]}&descricao=${formData["product-description"]}&preco=${formData["product-price"]}&imagem=${formData["product-image"]}&peso=${formData["product-weight"]}&codigo=${formData["product-code"]}`);
+    fetchProductData();
     closeModal();
   } else {
     alert("Você deve preencher todos os campos!");
@@ -204,35 +304,6 @@ function readProductFormData() {
   return formData;
 }
 
-function insertNewProductRecord(data) {
-  var table = document
-    .getElementById("productsTable")
-    .getElementsByTagName("tbody")[0];
-  var newRow = table.insertRow(table.length);
-  cell1 = newRow.insertCell(0);
-  cell1.innerHTML = data["product-name"];
-  cell2 = newRow.insertCell(1);
-  cell2.innerHTML = data["product-code"];
-  cell3 = newRow.insertCell(2);
-  let price = data["product-price"];
-  price = currencyFormatter(price);
-  cell3.innerHTML = price;
-  cell4 = newRow.insertCell(3);
-  cell4.innerHTML = data["product-weight"];
-  cell5 = newRow.insertCell(4);
-  cell5.innerHTML = data["product-image"];
-  cell6 = newRow.insertCell(5);
-  cell6.innerHTML = data["product-category"];
-  cell6 = newRow.insertCell(6);
-  cell6.innerHTML =
-    data["product-description"].length > 15
-      ? data["product-description"].substring(0, 15) + "..."
-      : data["product-description"];
-  cell7 = newRow.insertCell(7);
-  cell7.innerHTML = `<a onClick="editProduct(this)" id='config'>Editar</a>
-  <a onClick="deleteProduct(this);" id='config'>Deletar</a>`;
-}
-
 function isValidProductForm() {
   if (
     document.getElementById("productName").value !== "" &&
@@ -246,7 +317,7 @@ function isValidProductForm() {
   }
   return false;
 }
-
+//Deletar Produto
 function deleteProduct(data) {
   if (confirm("Tem certeza que deseja deletar este produto?")) {
     selectedRow = data.parentElement.parentElement;
