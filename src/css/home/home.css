@@ -14,9 +14,37 @@ body {
   width: 30vh;
 }
 
-.navbar li {
-  float: right;
-  list-style-type: none;
+li,
+a,
+button {
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.nav-links {
+  list-style: none;
+}
+
+.nav-links li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav-links li a {
+  color: white;
+}
+
+.carrinho {
+  padding-top: 15px;
+  padding-right: 15px;
 }
 
 h1 {
@@ -35,16 +63,6 @@ h2 {
   font-size: 10vh;
 }
 
-
-li a {
-  font-family: "Noto Serif Display", serif;
-  display: inline-block;
-  padding: 3vh 3vh;
-  color: white;
-  text-decoration: none;
-  font-size: 2.1vh;
-}
-
 li img {
   size: 2vh;
 }
@@ -58,11 +76,12 @@ li a:hover {
   backface-visibility: hidden;
 }
 
-.number_of_items {
+.number-of-items {
   display: inline-block;
-  font-weight: bold;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Noto Serif Display", serif;
   font-size: 2.2vh;
+  color: white;
+  padding-bottom: 5px;
 }
 
 .home {
@@ -78,31 +97,20 @@ li a:hover {
   width: 50vh;
 }
 
-.search {
+input {
   margin-top: 2.2vh;
-  padding-bottom: 2vh;
   border: none;
   border-bottom: white 2px solid;
   background: none;
   font-size: 2.1vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-input {
+  font-family: "Noto Serif Display", serif;
   color: white;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding-bottom: 15px;
 }
 
 ::placeholder {
   color: white;
   font-family: "Noto Serif Display", serif;
-}
-
-button {
-  background: none;
-  border: none;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
 }
 
 button:hover {
@@ -113,12 +121,12 @@ button:hover {
   outline: none;
 }
 
-.categories img{
+.categories img {
   width: 20vh;
   height: 20vh;
 }
 
-.home-items{
+.home-items {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -126,18 +134,18 @@ button:hover {
   padding-top: 5vh;
 }
 
-.boas-vindas{
+.boas-vindas {
   flex-direction: row;
   justify-content: center;
   width: 50%;
 }
 
-.produtos-home{
+.produtos-home {
   flex-direction: row;
   width: 50%;
 }
 
-.produtos-home img{
+.produtos-home img {
   flex-direction: column;
   border-radius: 7px;
   float: right;

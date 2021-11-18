@@ -6,7 +6,6 @@
     <title>Sobre – Harvest Plant Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./css/sobre/sobre.css" />
-    <link rel="stylesheet" href="./css/reset.css" />
     <link rel="icon" href="./img/harvest_logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,44 +16,41 @@
   </head>
   <body>
     <div class="animation">
-      <div class="navbar">
-        <a href="" class="logo"><img src="./img/harvest_nome.png" alt="logo" /></a>
-        <li>
-          <a href=""><img src="./img/icone_carrinho.png" alt="" />
-        </li>
-        <li>
-          <a href=""
-            ><img
-              src="https://icongr.am/material/account-circle.svg?size=30&color=ffffff"
-              alt=""
-          /></a>
-        </li>
-        <li>
-          <input type="text" class="search" placeholder="Buscar" />
-          <button type="submit" class="search-button">
-            <img src="img/icone_busca.svg" alt="buscar" />
-          </button>
-        </li>
-
-        <li>
-          <a href="./administracao.html">Administração</a>
-        </li>
-        <li>
-          <a href="./contato.html">Contato</a>
-        </li>
-        <li>
-          <a href="./sobre.html" class="sobre">Sobre</a>
-        </li>
-        <li>
-          <a href="./pedidos.html">Pedidos</a>
-        </li>
-        <li>
-          <a href="./produtos.html">Produtos</a>
-        </li>
-        <li>
-          <a href="./index.html">Home</a>
-        </li>
-      </div>
+      <header>
+        <a href="index.html" class="logo"
+          ><img src="./img/harvest_nome.png" alt=""
+        /></a>
+        <nav></nav>
+        <ul class="nav-links">
+          <li>
+            <a href="./index.html" class="home">Home</a>
+          </li>
+          <li>
+            <a href="./produtos.html">Produtos</a>
+          </li>
+          <li>
+            <a href="./pedidos.html">Pedidos</a>
+          </li>
+          <li>
+            <a href="./sobre.html" class="sobre">Sobre</a>
+          </li>
+          <li>
+            <a href="./contato.html">Contato</a>
+          </li>
+          <li>
+            <a href="./administracao.html" class="administracao"
+              >Administração</a
+            >
+          </li>
+          <li>
+            <input type="text" placeholder="Buscar" />
+            <button><img src="./img/icone_busca.svg" alt="" /></button>
+          </li>
+        </ul>
+        <a href="#"
+          ><img src="./img/icone_carrinho.png" alt="" class="carrinho" />
+        </a>
+      </header>
       <div class="sobre-nos">
         <div class="logo-image">
           <img src="./img/harvest_logo_nome.png" alt="" />
@@ -74,21 +70,21 @@
         <button class="entre-contato">
           <a href="./contato.html">FALE CONOSCO</a>
         </button>
-      </div>
-      <div class="onde-estamos">
-        <h2>Onde estamos:</h2>
-        <address>
-          &nbsp;
-          <p>
-            <strong>Harvest Plant Shop</strong>
-            <br />
-            Rua dos Bobos, 0
-            <br />
-            Curitiba, PR
-            <br />
-            (41) 99999-9999
-          </p>
-        </address>
+
+        <div class="onde-estamos">
+          <h2>Onde estamos:</h2>
+          <address>
+            <p>
+              <strong>Harvest Plant Shop</strong>
+              <br />
+              Rua dos Bobos, 0
+              <br />
+              Curitiba, PR
+              <br />
+              (41) 99999-9999
+            </p>
+          </address>
+        </div>
       </div>
     </div>
   </body>

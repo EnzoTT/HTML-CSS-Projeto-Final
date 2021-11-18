@@ -96,7 +96,8 @@ function onCategoryFormSubmit() {
   console.log("Editei");
 }
 
-function editCategory(nome) {selectedRow.cells[1].innerHTML;
+function editCategory(nome) {
+  selectedRow.cells[1].innerHTML;
   ("categoria");
   const KEY = "xc6iPDgo3w";
   const COMANDO = "categoria";
@@ -132,19 +133,7 @@ function updateRecord(data) {
   selectedRow.cells[0].innerHTML = data.category;
   selectedRow = null;
 }
-//Deletar Categoria
-function onDeleteCategory(td) {
-  if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
-    row = td.parentElement.parentElement;
-    idToDelete = row.cells[0].innerHTML;
-    const KEY = "xc6iPDgo3w";
-    const COMANDO = "categoria";
-    const OPCAO = "remover";
-    loadJSON((any) => {},
-    `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${idToDelete}`);
-    fetchCategoryData();
-  }
-}
+
 function isCategoryEmpty() {
   return categorysData.length > 0;
 }
@@ -321,7 +310,34 @@ function isValidProductForm() {
 function deleteProduct(data) {
   if (confirm("Tem certeza que deseja deletar este produto?")) {
     selectedRow = data.parentElement.parentElement;
+    const KEY = "xc6iPDgo3w";
+    const COMANDO = "produto";
+    const OPCAO = "remover";
+    const ID = selectedRow.cells[0].innerHTML;
+    fetch(`http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        fetchProductData();
+      });
     document.getElementById("productsTable").deleteRow(selectedRow.rowIndex);
+  }
+}
+
+//Deletar Categoria
+function onDeleteCategory(td) {
+  if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
+    row = td.parentElement.parentElement;
+    const ID = row.cells[0].innerHTML;
+    const KEY = "xc6iPDgo3w";
+    const COMANDO = "categoria";
+    const OPCAO = "remover";
+    fetch(`http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        fetchCategoryData();
+      });
   }
 }
 
