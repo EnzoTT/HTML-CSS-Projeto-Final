@@ -184,6 +184,7 @@ button:hover {
 tr:nth-child(even) {
   background-color: #be935f;
 }
+
 #config {
   color: white;
   border-bottom: solid white 2px;
