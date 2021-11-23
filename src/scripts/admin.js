@@ -2,19 +2,6 @@ window.onload = () => {
   fetchCategoryData();
   fetchProductData();
 };
-//API function
-function loadJSON(callback, url) {
-  console.log(url);
-  var obj = new XMLHttpRequest();
-  obj.overrideMimeType("application/json");
-  obj.open("GET", url, true);
-  obj.onreadystatechange = function () {
-    if (obj.readyState == 4 && obj.status == "200") {
-      callback(JSON.parse(obj.responseText));
-    }
-  };
-  obj.send(null);
-}
 
 //Categoria
 const categoryForm = document.getElementById("category-form");
@@ -62,7 +49,10 @@ function fetchCategoryData() {
   const SAIDA = "json";
   const COMANDO = "categoria";
   const OPCAO = "listar";
-  fetch(`http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}`)
+  const FORMATO = "json";
+  fetch(
+    `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&f=${FORMATO}`
+  )
     .then((response) => response.json())
     .then((data) => {
       if (data) {
@@ -87,10 +77,20 @@ function onCategoryFormSubmit() {
     const KEY = "xc6iPDgo3w";
     const COMANDO = "categoria";
     const OPCAO = "inserir";
-    loadJSON((any) => {},
-    `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&nome=${formData["category"]}`);
-    fetchCategoryData();
-    return;
+    const FORMATO = "json";
+    fetch(
+      `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&nome=${formData["category"]}&f=${FORMATO}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status != "OK") {
+          alert("Não foi possível adicionar este produto! " + data.status);
+        } else {
+          fetchCategoryData();
+          resetForm();
+        }
+      });
   }
   editCategory(formData["category"]);
   console.log("Editei");
@@ -102,10 +102,19 @@ function editCategory(nome) {
   const KEY = "xc6iPDgo3w";
   const COMANDO = "categoria";
   const OPCAO = "alterar";
-  loadJSON((any) => {},
-  `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${editCategoryId}&nome=${nome}`);
-  fetchCategoryData();
-  resetForm();
+  const FORMATO = "json";
+  const request = `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${editCategoryId}&nome=${nome}&f=${FORMATO}`;
+  fetch(request)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data.status != "OK") {
+        alert("Não foi possível editar este produto! " + data.status);
+      } else {
+        fetchCategoryData();
+        resetForm();
+      }
+    });
 }
 
 function resetForm() {
@@ -208,21 +217,31 @@ function generateProductTable(table, data) {
     }
     let td = document.createElement("td");
     row.appendChild(td);
-    td.innerHTML = `<a onClick="editProduct(this)" id='config'>Editar</a>
+    td.innerHTML = `<a onClick="editProductSubmit()" id='config'>Editar</a>
     <a onClick="deleteProduct(this);" id='config'>Deletar</a>`;
   }
 }
 
+function openModalEdit() {
+  mountSelect(categorysData);
+  document.getElementById("form-modal").style.display = "flex";
+  document.getElementById("submit-product").style.display = "none";
+}
+
 function openModal() {
-  if (isCategoryEmpty()) {
     mountSelect(categorysData);
     document.getElementById("form-modal").style.display = "flex";
-    return;
-  }
-  alert("Você não possui nenhuma categoria cadastrada!");
+    document.getElementById("edit-product").style.display = "none";
+}
+
+function closeModalEdit() {
+  document.getElementById("submit-product").style.display = "flex";
+  document.getElementById("form-modal").style.display = "none";
+  resetProductForm();
 }
 
 function closeModal() {
+  document.getElementById("edit-product").style.display = "flex";
   document.getElementById("form-modal").style.display = "none";
   resetProductForm();
 }
@@ -262,20 +281,51 @@ function onProductFormSubmit() {
     const KEY = "xc6iPDgo3w";
     const COMANDO = "produto";
     const OPCAO = "inserir";
-    console.log(`http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}
-    &nome=${formData["product-name"]}
-    &categoria=${formData["product-category"]}
-    &descricao${formData["product-description"]}
-    &preco=${formData["product-price"]}
-    &imagem=${formData["product-image"]}
-    &peso=${formData["product-weight"]}`);
-    loadJSON((any) => {
-      console.log(any);
-    }, `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&nome=${formData["product-name"]}&categoria=${formData["product-category"]}&descricao=${formData["product-description"]}&preco=${formData["product-price"]}&imagem=${formData["product-image"]}&peso=${formData["product-weight"]}&codigo=${formData["product-code"]}`);
-    fetchProductData();
-    closeModal();
-  } else {
-    alert("Você deve preencher todos os campos!");
+    const FORMATO = "json";
+    const request = `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&nome=${formData["product-name"]}&categoria=${formData["product-category"]}&descricao=${formData["product-description"]}&preco=${formData["product-price"]}&imagem=${formData["product-image"]}&peso=${formData["product-weight"]}&codigo=${formData["product-code"]}&f=${FORMATO}`;
+    console.log(request);
+    fetch(request)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === "OK") {
+          alert("Produto cadastrado com sucesso!");
+          closeModal();
+          fetchProductData();
+        } else {
+          alert("Erro ao cadastrar produto! " + data.mensagem);
+        }
+      });
+  }
+}
+
+function editProductSubmit() {
+  openModalEdit();
+  if (isValidProductForm()) {
+    let formData = readProductFormData();
+    console.log('to no edit');
+    const CODIGO = formData["product-code"];
+    const KEY = "xc6iPDgo3w";
+    const COMANDO = "produto";
+    const OPCAO = "alterar";
+    const FORMATO = "json";
+    const request = `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}&codigo=${CODIGO}&nome=${formData["product-name"]}&categoria=${formData["product-category"]}&descricao=${formData["product-description"]}&preco=${formData["product-price"]}&imagem=${formData["product-image"]}&peso=${formData["product-weight"]}&codigo=${formData["product-code"]}&f=${FORMATO}`;
+    console.log(request);
+    console.log('fetch edit');
+    fetch(request)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === "OK") {
+          alert("Produto editado com sucesso!");
+          closeModal();
+          fetchProductData();
+        } else {
+          alert("Erro ao editar produto! " + data.mensagem);
+        }
+      });
+    closeModalEdit();
+    resetForm();
   }
 }
 
@@ -306,6 +356,7 @@ function isValidProductForm() {
   }
   return false;
 }
+
 //Deletar Produto
 function deleteProduct(data) {
   if (confirm("Tem certeza que deseja deletar este produto?")) {
@@ -314,13 +365,23 @@ function deleteProduct(data) {
     const COMANDO = "produto";
     const OPCAO = "remover";
     const ID = selectedRow.cells[0].innerHTML;
-    fetch(`http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}`)
+    const FORMATO = "json";
+    fetch(
+      `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}&f=${FORMATO}`
+    )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        fetchProductData();
+        if (data.status != "OK") {
+          alert("Não foi possível deletar este produto! " + data.status);
+        } else {
+          alert("Produto deletado com sucesso!");
+          console.log(data);
+          document
+            .getElementById("productsTable")
+            .deleteRow(selectedRow.rowIndex);
+          fetchProductData();
+        }
       });
-    document.getElementById("productsTable").deleteRow(selectedRow.rowIndex);
   }
 }
 
@@ -329,14 +390,22 @@ function onDeleteCategory(td) {
   if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
     row = td.parentElement.parentElement;
     const ID = row.cells[0].innerHTML;
-    const KEY = "xc6iPDgo3w";
+    const KEY = "xc6iPDgo3w"; //chave de acesso
     const COMANDO = "categoria";
     const OPCAO = "remover";
-    fetch(`http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}`)
+    const FORMATO = "json";
+
+    fetch(
+      `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}&f=${FORMATO}`
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        fetchCategoryData();
+        if (data.status == "OK") {
+          alert("Categoria deletada com sucesso!");
+          console.log(data);
+          fetchCategoryData();
+        }
       });
   }
 }
