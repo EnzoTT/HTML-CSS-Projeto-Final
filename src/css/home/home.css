@@ -121,36 +121,85 @@ button:hover {
   outline: none;
 }
 
-.categories img {
-  width: 20vh;
-  height: 20vh;
+.categorias-label{
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: white;
+  padding-bottom: 5px;
 }
 
-.home-items {
+select{
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: #be935f;
+  padding-bottom: 5px;
+  background-color: #142427;
+  border: none;
+  width: 25%;
+}
+
+.produtos-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
+  flex-flow: row wrap;
+  justify-content: space-between;
   padding-top: 5vh;
 }
 
-.boas-vindas {
-  flex-direction: row;
-  justify-content: center;
-  width: 50%;
+.produtos-container img {
+  width: 30vh;
+  height: 30vh;
+  margin: 2vh;
 }
 
-.produtos-home {
-  flex-direction: row;
-  width: 50%;
+.info {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding-left: 2vh;
+  padding-right: 2vh;
 }
 
-.produtos-home img {
-  flex-direction: column;
-  border-radius: 7px;
-  float: right;
-  width: 20vh;
-  height: 20vh;
+.link-produto {
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: #142427;
+  text-decoration: none;
+  text-align: center;
+  border-color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  background-color: white;
+  transition: transform .2s;
+}
+
+.link-produto img{
+  transition: transform .5s ease;
+  border-radius: 10px;
+}
+
+.link-produto img:hover{
+  cursor: pointer;
+  transform: scale(1.5);
+}
+
+.link-produto a:hover{
+  color: #be935f;
+  font-weight: bold;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.price{
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: white;
+  border: #3c7264 2px solid;
+  border-radius: 10px;
+  background-color: #3c7264;
+  text-align: center;
 }
 
 .animation {

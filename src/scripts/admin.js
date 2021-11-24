@@ -151,6 +151,9 @@ function isCategoryEmpty() {
 const productForm = document.getElementById("form-produtos");
 productForm.addEventListener("submit", onProductFormSubmit);
 
+const modalEdit = document.getElementById("form-produtos-edit");
+modalEdit.addEventListener("submit", editProductSubmit);
+
 function fetchProductData() {
   document.getElementById("productsTable").innerHTML = "";
   const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
@@ -223,27 +226,29 @@ function generateProductTable(table, data) {
 }
 
 function openModalEdit() {
-  mountSelect(categorysData);
-  document.getElementById("form-modal").style.display = "flex";
-  document.getElementById("submit-product").style.display = "none";
+  mountSelectEdit(categorysData);
+  document.getElementById("form-modal-edit").style.display = "flex";
 }
 
 function openModal() {
     mountSelect(categorysData);
     document.getElementById("form-modal").style.display = "flex";
-    document.getElementById("edit-product").style.display = "none";
-}
-
-function closeModalEdit() {
-  document.getElementById("submit-product").style.display = "flex";
-  document.getElementById("form-modal").style.display = "none";
-  resetProductForm();
 }
 
 function closeModal() {
-  document.getElementById("edit-product").style.display = "flex";
   document.getElementById("form-modal").style.display = "none";
+  document.getElementById("form-modal-edit").style.display = "none";
   resetProductForm();
+}
+
+function mountSelectEdit(categorias){
+  const select = document.getElementById("category-select-edit");
+  for(let categoria of categorias){
+    let option = document.createElement("option");
+    option.value = categoria.id;
+    option.text = categoria.nome;
+    select.appendChild(option);
+  }
 }
 
 function mountSelect(categorias) {
@@ -299,12 +304,15 @@ function onProductFormSubmit() {
   }
 }
 
+
+
 function editProductSubmit() {
   openModalEdit();
   if (isValidProductForm()) {
     let formData = readProductFormData();
     console.log('to no edit');
-    const CODIGO = formData["product-code"];
+    const CODIGO = 11;
+    const ID = 910;
     const KEY = "xc6iPDgo3w";
     const COMANDO = "produto";
     const OPCAO = "alterar";

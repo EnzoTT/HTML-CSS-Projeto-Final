@@ -40,16 +40,24 @@
           <li>
             <a href="./administracao.html">Administração</a>
           </li>
-          <li>
-            <input type="text" placeholder="Buscar" />
-            <button><img src="./img/icone_busca.svg" alt="" /></button>
-          </li>
         </ul>
         <a href="#"
-          ><img src="./img/icone_carrinho.png" alt="" class="carrinho" />
+          ><img src="./img/icone_carrinho.png" alt="" class="carrinho" id="carrinho"/>
+          <p id="quantidade-carrinho">
+          </p>
         </a>
       </header>
-       <p>.</p>
+      <div>
+        <label for="select-categorias" class="categorias-label"></label>
+        <br />
+        <p class="categorias-label">
+          <span>Categorias</span>
+        </p>
+        <select name="" id="select-categorias"></select>
+      </div>
+      <div class="produtos-container" id="produtos-container"></div>
+      <p>.</p>
     </div>
+    <script src="./scripts/home.js"></script>
   </body>
 </html>

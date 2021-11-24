@@ -145,16 +145,70 @@
           ></textarea>
           <input
             type="submit"
-            value="Editar"
-            class="edit-product"
-            id="edit-product"
-            onclick="editProductSubmit()"
-            />
-          <input
-            type="submit"
             value="Adicionar"
             class="submit-input"
             id="submit-product"
+          />
+        </form>
+      </div>
+      <div class="form-modal" id="form-modal-edit">
+        <button class="close-modal" onclick="closeModal()">X</button>
+        <form
+          onsubmit="event.preventDefault();"
+          class="form-produtos"
+          id="form-produtos-edit"
+        >
+          <input
+            type="text"
+            name="productName"
+            id="productName"
+            placeholder="Nome do produto"
+            class="form-input"
+          />
+          <input
+            type="number"
+            name="productCode"
+            id="productCode"
+            placeholder="Código do produto"
+            class="form-input"
+          />
+          <input
+            type="text"
+            name="productPrice"
+            id="productPrice"
+            placeholder="Preço do produto &nbsp; (Ex: 28.96)"
+            class="form-input"
+          />
+          <input
+            type="text"
+            name="ProductWeight"
+            id="ProductWeight"
+            placeholder="Peso do produto"
+            class="form-input"
+          />
+          <input
+            type="text"
+            name="productImage"
+            id="productImage"
+            placeholder="Imagem do produto"
+            class="form-input"
+          />
+          <select id="category-select-edit" class="form-input">
+            <option value="" disabled selected>Selecione uma categoria</option>
+          </select>
+          <textarea
+            name="mensagem"
+            placeholder="Descrição"
+            id="productDescription"
+            cols="50"
+            rows="10"
+            class="mensagem"
+          ></textarea>
+          <input
+            type="submit"
+            value="Editar"
+            class="submit-input"
+            id="submit-product-edit"
           />
         </form>
       </div>
