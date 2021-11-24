@@ -142,7 +142,8 @@ select{
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  padding-top: 5vh;
+  padding: 5vh;
+
 }
 
 .produtos-container img {
@@ -208,6 +209,75 @@ select{
   -moz-animation: fadeIn 2s;
   -o-animation: fadeIn 2s;
   -ms-animation: fadeIn 2s;
+}
+
+.product-details{
+  background-color: white;
+  width: 50%;
+  height: 75%;
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+
+}
+
+#product-details-image:hover{
+  transform: scale(1.5);
+}
+
+#product-details-image{
+  width: 50%;
+  height: 50%;
+  border-radius: 10px;
+  transition: transform .5s ease;
+}
+
+.product-details-container{
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.product-details h2{
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: white;
+  text-align: center;
+}
+
+#product-details-price{
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: white;
+  border: #3c7264 2px solid;
+  border-radius: 10px;
+  background-color: #3c7264;
+  text-align: center;
+}
+
+#product-details-name{
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: #142427;
+  text-align: center;
+}
+
+.close-details{
+  font-size:3.5vh;
+  font-weight: 700;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding-right: 5vh;
+  border: none;
+  background-color: transparent;
+  color: #142427;
+  font-family: "Noto Serif Display", serif;
 }
 
 @keyframes fadeIn {

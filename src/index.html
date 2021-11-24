@@ -42,9 +42,13 @@
           </li>
         </ul>
         <a href="#"
-          ><img src="./img/icone_carrinho.png" alt="" class="carrinho" id="carrinho"/>
-          <p id="quantidade-carrinho">
-          </p>
+          ><img
+            src="./img/icone_carrinho.png"
+            alt=""
+            class="carrinho"
+            id="carrinho"
+          />
+          <p id="quantidade-carrinho"></p>
         </a>
       </header>
       <div>
@@ -53,9 +57,24 @@
         <p class="categorias-label">
           <span>Categorias</span>
         </p>
-        <select name="" id="select-categorias"></select>
+        <select name="" id="select-categorias">
+          <option value="">Todos</option>
+        </select>
       </div>
       <div class="produtos-container" id="produtos-container"></div>
+      <div id="product-details" class="product-details">
+        <button class="close-details" onclick="closeProductDetails()">X</button>
+        <div class="product-details-container">
+          <img src="" alt="" id="product-details-image" />
+          <div class="product-details-info">
+            <h2 id="product-details-name"></h2>
+            <p id="product-details-description"></p>
+            <p id="product-details-price"></p>
+            <p id="product-details-category"></p>
+            <a href="">Comprar</a>
+          </div>
+        </div>
+      </div>
       <p>.</p>
     </div>
     <script src="./scripts/home.js"></script>
