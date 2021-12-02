@@ -47,6 +47,8 @@ header {
   padding-right: 15px;
 }
 
+
+
 h1 {
   padding-left: 5vh;
   padding-top: 5vh;
@@ -58,7 +60,7 @@ h1 {
 h2 {
   padding-left: 5vh;
   padding-top: 5vh;
-  font-family: "Noto Serif Display", serif;
+  font-family: 'Outfit', sans-serif;
   color: white;
   font-size: 10vh;
 }
@@ -74,14 +76,6 @@ li a:hover {
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
   backface-visibility: hidden;
-}
-
-.number-of-items {
-  display: inline-block;
-  font-family: "Noto Serif Display", serif;
-  font-size: 2.2vh;
-  color: white;
-  padding-bottom: 5px;
 }
 
 .home {
@@ -126,6 +120,7 @@ button:hover {
   font-size: 2.2vh;
   color: white;
   padding-bottom: 5px;
+  padding-left: 10px;
 }
 
 select{
@@ -136,6 +131,7 @@ select{
   background-color: #142427;
   border: none;
   width: 25%;
+  padding-left: 10px;
 }
 
 .produtos-container {
@@ -158,6 +154,7 @@ select{
   justify-content: space-between;
   padding-left: 2vh;
   padding-right: 2vh;
+  margin: 2vh;
 }
 
 .link-produto {
@@ -203,6 +200,23 @@ select{
   text-align: center;
 }
 
+.descricao-hide{
+  display: none;
+}
+
+.btn-comprar{
+  font-family: "Noto Serif Display", serif;
+  font-size: 2.2vh;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  background-color: #be935f;
+  text-align: center;
+  padding: 5px;
+  margin-top: 2vh;
+  transition: transform .2s;
+}
+
 .animation {
   animation: fadeIn 2s;
   -webkit-animation: fadeIn 2s;
@@ -220,7 +234,11 @@ select{
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+}
 
+.produto-nome{
+  font-family: 'Outfit', sans-serif;
+  padding-bottom: 2vh;
 }
 
 #product-details-image:hover{
@@ -243,21 +261,33 @@ select{
   padding-bottom: 5vh;
 }
 
-.product-details h2{
-  font-family: "Noto Serif Display", serif;
+#product-details-name{
+  font-family: 'Outfit', sans-serif;
   font-size: 2.2vh;
   color: white;
   text-align: center;
 }
 
+.product-details-container p{
+  font-family: 'Outfit', sans-serif;
+  font-size: 2vh;
+  color: black;
+  text-align: center;
+  padding: 0.5vh;
+  width: 500px;
+}
+
 #product-details-price{
-  font-family: "Noto Serif Display", serif;
+  display: flex;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
   font-size: 2.2vh;
   color: white;
   border: #3c7264 2px solid;
   border-radius: 10px;
   background-color: #3c7264;
   text-align: center;
+  width: 50px;
 }
 
 #product-details-name{

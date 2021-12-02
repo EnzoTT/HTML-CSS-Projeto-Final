@@ -25,7 +25,7 @@ button {
 header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: auto;
   padding-right: 15px;
 }
 
@@ -75,7 +75,6 @@ li a:hover {
   -ms-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-
 
 input {
   margin-top: 2.2vh;

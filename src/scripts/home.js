@@ -36,24 +36,6 @@ function fetchProductData() {
       console.log(data);
       const produtos = data.dados;
       showProducts(produtos);
-    })
-    .then(() => {
-      let produto = document.getElementById("produto-link");
-      produto.addEventListener("click", () => {
-        let produtos = {
-          nome: "",
-          preco: "",
-          imagem: "",
-          descricao: "",
-          categoria: "",
-        };
-        produtos.nome = document.getElementById("nome").innerText;
-        produtos.preco = document.getElementById("price").innerText;
-        produtos.imagem = document.getElementById("imagem-produto").src;
-        produtos.categoria = document.getElementById("select-categorias").value;
-
-        showProductDetails(produtos);
-      });
     });
 }
 
@@ -74,12 +56,30 @@ function showProducts(produtos) {
         <a class="link-produto" id="produto-link">
         <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto" id="imagem-produto">
         <div class="info">
-            <h3 id="nome">${produto.nome}</h3>
+            <h3 id="nome" class="produto-nome">${produto.nome}</h3>
             <p class="price" id="price">R$ ${produto.preco}</p>
+            <button class="btn-comprar">Comprar</button>
+            <p class="descricao-hide" id="descricao">${produto.descricao}</p>
         </div>
         </a>
         `;
     container.appendChild(div);
+  });
+  getProductLinkId();
+}
+
+function getProductLinkId() {
+  document.getElementById("produto-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    const detalhes = {
+      imagem: e.target.parentNode.firstElementChild.src,
+      nome: e.target.parentNode.firstElementChild.nextElementSibling
+        .firstElementChild.innerText,
+      preco: document.getElementById("price").innerText,
+      descricao: document.getElementById("descricao").innerText,
+    };
+    console.log(detalhes);
+    showProductDetails(detalhes);
   });
 }
 
@@ -99,8 +99,8 @@ function showProductDetails(produtos) {
   nome.innerText = produtos.nome;
   const preco = document.getElementById("product-details-price");
   preco.innerText = produtos.preco;
-  const descricao = document.getElementById("product-details-descricao");
-  //descricao.innerText = produtos.descricao;
+  const descricao = document.getElementById("product-details-description");
+  descricao.innerText = produtos.descricao;
 }
 
 function closeProductDetails() {
@@ -110,7 +110,12 @@ function closeProductDetails() {
 
 document.getElementById("select-categorias").addEventListener("change", (e) => {
   const idCategoria = e.target.value;
-  changeCategoria(idCategoria);
+  if (e.currentTarget.value == "todos") {
+    clearScreen();
+    fetchProductData();
+  } else {
+    changeCategoria(idCategoria);
+  }
 });
 
 function changeCategoria(id) {
@@ -119,14 +124,20 @@ function changeCategoria(id) {
   const COMANDO = "produto";
   const OPCAO = "listar";
   const FORMATO = "json";
+  let produtosLista = [];
   fetch(
     `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&f=${FORMATO}&categoria=${id}`
   )
     .then((response) => response.json())
     .then((data) => {
       const produtos = data.dados;
+      produtos.forEach((produto) => {
+        if (produto.categoria == id) {
+          produtosLista.push(produto);
+        }
+      });
       clearScreen();
-      showProducts(produtos);
+      showProducts(produtosLista);
     });
 }
 
