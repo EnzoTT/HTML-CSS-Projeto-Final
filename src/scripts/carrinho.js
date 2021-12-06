@@ -61,11 +61,16 @@ function showCartProducts(data, itens) {
   div.classList.add("produtos-card");
   div.innerHTML = `
     <a class="link-produto" id="${data.id}">
-    <img src="${data.imagem}" alt="${data.nome}" class="imagem-produto" id="imagem-produto">
+    <img src="${data.imagem}" alt="${
+    data.nome
+  }" class="imagem-produto" id="imagem-produto">
     <div class="info">
       <h3 id="nome" class="produto-nome">${data.nome}</h3>
       <p class="price" id="price">R$ ${data.preco}</p>
-      <p class="quantidade" id="quantidade">Quantidade: ${quantidadeItem(data.nome, itens)}</p> 
+      <p class="quantidade" id="quantidade">Quantidade: ${quantidadeItem(
+        data.nome,
+        itens
+      )}</p> 
     </div>
     <div> 
       <button class="+" id="aumentar" >+</button>
@@ -101,4 +106,99 @@ function showCartProducts(data, itens) {
   }
 }
 
+function buscaCEP() {
+  let cep = document.getElementById("cep").value;
+  let url = `https://viacep.com.br/ws/${cep}/json/`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      document.getElementById("rua").value = data.logradouro;
+      document.getElementById("bairro").value = data.bairro;
+      document.getElementById("cidade").value = data.localidade;
+      document.getElementById("uf").value = data.uf;
+    });
+}
 
+function validaCPF() {
+  let cpf = document.getElementById("cpf").value;
+  if (cpf.length != 11) {
+    document.getElementById("cpf").style.borderColor = "red";
+  } else {
+    document.getElementById("cpf").style.borderColor = "green";
+  }
+}
+
+function finalizarPedido(event) {
+  event.preventDefault();
+  let nome = document.getElementById("nome").value;
+  console.log(nome);
+  let cpf = document.getElementById("cpf").value;
+  let cep = document.getElementById("cep").value;
+  let rua = document.getElementById("rua").value;
+  let bairro = document.getElementById("bairro").value;
+  let cidade = document.getElementById("cidade").value;
+  let uf = document.getElementById("uf").value;
+  let numero = document.getElementById("numero").value;
+  let complemento = document.getElementById("complemento").value;
+  let items = JSON.parse(localStorage.getItem("carrinho"));
+  let itens = [];
+
+  const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
+  const SAIDA = "json";
+  const COMANDO = "pedido";
+  const OPCAO = "inserir";
+  const NOME = nome;
+  const CPF = cpf;
+  const CEP = cep;
+  const RUA = rua;
+  const BAIRRO = bairro;
+  const CIDADE = cidade;
+  const UF = uf;
+  const NUMERO = numero;
+  const COMPLEMENTO = complemento;
+  let ID_PEDIDO = 0;
+
+  let requisicao = { method: "POST" };
+
+  const URL = `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&nome=${NOME}&cpf=${CPF}&cep=${CEP}&rua=${RUA}&bairro=${BAIRRO}&cidade=${CIDADE}&uf=${UF}&numero=${NUMERO}&complemento=${COMPLEMENTO}`;
+  fetch(URL, requisicao)
+    .then((response) => response.json())
+    .then((data) => {
+      ID_PEDIDO = data.dados.id;
+      console.log(data);
+      if(data.erro == 0){
+        requisicao_itens(ID_PEDIDO, items);
+      }
+    });
+  
+    let pedido = {
+    nome: nome,
+    cpf: cpf,
+    cep: cep,
+    rua: rua,
+    bairro: bairro,
+    cidade: cidade,
+    uf: uf,
+  };
+}
+
+function requisicao_itens(ID_PEDIDO, items) {
+  const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
+  const SAIDA = "json";
+  const COMANDO = "item";
+  const OPCAO = "inserir";
+
+  let requisicao = { method: "POST" };
+  items.forEach((item) => {
+    console.log(item);
+    
+  const URL = `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&pedido=${ID_PEDIDO}&qtd=${1}&produto=${item.id}`;
+  console.log(URL);
+  fetch(URL, requisicao)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+  });
+}

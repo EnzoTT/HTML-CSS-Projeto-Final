@@ -15,8 +15,7 @@ body {
 }
 
 li,
-a,
-button {
+a{
   font-family: "Noto Serif Display", serif;
   font-size: 2.2vh;
   text-decoration: none;
@@ -303,6 +302,56 @@ select {
   color: #142427;
   font-family: "Noto Serif Display", serif;
 }
+
+.dados-comprador{
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  margin: 2vh;
+  width: 50%;
+}
+
+.dados-comprador button{
+  font-family: "Outfit", sans-serif;
+  font-size: 2.2vh;
+  color: white;
+  border: none;
+  background-color: #142427;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dados-comprador label{
+  font-family: "Outfit", sans-serif;
+  font-size: 2.2vh;
+  color: white;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.dados-comprador a{
+  font-family: "Outfit", sans-serif;
+  font-size: 2.2vh;
+  color: #be935f;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+.buscar-cep{
+  cursor: pointer;
+}
+
+::placeholder{
+  opacity: 0.5;
+}
+
 
 @keyframes fadeIn {
   0% {
