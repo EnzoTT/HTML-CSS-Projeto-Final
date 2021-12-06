@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Produtos – Harvest Plant Shop</title>
+    <title>Carrinho – Harvest Plant Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/produtos/produtos.css" />
+    <link rel="stylesheet" href="./css/carrinho/carrinho.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -30,10 +30,10 @@
         <nav></nav>
         <ul class="nav-links">
           <li>
-            <a href="./index.html" >Home</a>
+            <a href="./index.html">Home</a>
           </li>
           <li>
-            <a href="./produtos.html" class="produtos">Produtos</a>
+            <a href="./produtos.html">Produtos</a>
           </li>
           <li>
             <a href="./pedidos.html">Pedidos</a>
@@ -48,43 +48,19 @@
             <a href="./administracao.html">Administração</a>
           </li>
         </ul>
-        <div ondragover="allowDrop(event)" ondrop="drop(event)" id="carrinho">
-          <a href="carrinho.html"
-            ><img
-              src="./img/icone_carrinho.png"
-              alt=""
-              class="carrinho"
-            />
-            <p id="quantidade-carrinho">0</p>
-          </a>
-        </div>
+        <a href="#"
+          ><img
+            src="./img/icone_carrinho.png"
+            alt=""
+            class="carrinho"
+            id="carrinho"
+          />
+          <p id="quantidade-carrinho"></p>
+        </a>
       </header>
-      <div>
-        <label for="select-categorias" class="categorias-label"></label>
-        <br />
-        <p class="categorias-label">
-          <span>Categorias</span>
-        </p>
-        <select name="" id="select-categorias">
-          <option value="todos">Todos</option>
-        </select>
-      </div>
       <div class="produtos-container" id="produtos-container"></div>
-      <div id="product-details" class="product-details">
-        <button class="close-details" onclick="closeProductDetails()">X</button>
-        <div class="product-details-container">
-          <img src="" alt="" id="product-details-image" />
-          <div class="product-details-info">
-            <h2 id="product-details-name"></h2>
-            <p id="product-details-description"></p>
-            <p id="product-details-price"></p>
-            <p id="product-details-category"></p>
-            <button id="btn-comprar">Comprar</button>
-          </div>
-        </div>
-      </div>
       <p>.</p>
     </div>
-    <script src="./scripts/produtos.js"></script>
+    <script src="./scripts/carrinho.js"></script>
   </body>
 </html>

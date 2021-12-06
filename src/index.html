@@ -48,15 +48,17 @@
             <a href="./administracao.html">Administração</a>
           </li>
         </ul>
-        <a href="#"
-          ><img
-            src="./img/icone_carrinho.png"
-            alt=""
-            class="carrinho"
-            id="carrinho"
-          />
-          <p id="quantidade-carrinho"></p>
-        </a>
+        <div ondrop="drop(event)" ondragover="allowDrop(event)">
+          <a href="carrinho.html"
+            ><img
+              src="./img/icone_carrinho.png"
+              alt=""
+              class="carrinho"
+              id="carrinho"
+            />
+            <p id="quantidade-carrinho"></p>
+          </a>
+        </div>
       </header>
       <div>
         <label for="select-categorias" class="categorias-label"></label>
@@ -84,6 +86,7 @@
       </div>
       <p>.</p>
     </div>
+
     <script src="./scripts/home.js"></script>
   </body>
 </html>

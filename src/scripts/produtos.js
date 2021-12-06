@@ -3,6 +3,7 @@ window.onload = function () {
   getCategoria();
 };
 
+
 function getCategoria() {
   const KEY = "xc6iPDgo3w"; // a chave do grupo é xc6iPDgo3w
   const SAIDA = "json";
@@ -53,23 +54,24 @@ function showProducts(produtos) {
       produto.nome = produto.nome.substring(0, 15) + "...";
     }
     div.innerHTML = `
-        <a class="link-produto" id="${produto.id}" draggable="true" ondragstart="drag(event)">
-        <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto" id="imagem-produto">
-        <div class="info">
-            <h3 id="nome" class="produto-nome">${produto.nome}</h3>
-            <p class="price" id="price">R$ ${produto.preco}</p>
-            <button class="btn-comprar">Comprar</button>
-            <p class="descricao-hide" id="descricao">${produto.descricao}</p>
-        </div>
-        </a>
-        `;
+          <a class="link-produto" id="${produto.id}" draggable="true">
+          <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto" id="imagem-produto" draggable="false">
+          <div class="info">
+              <h3 id="nome" class="produto-nome">${produto.nome}</h3>
+              <p class="price" id="price">R$ ${produto.preco}</p>
+              <button class="btn-comprar" onclick="adicionarAoCarrinho(event)">Comprar</button>
+              <p class="descricao-hide" id="descricao">${produto.descricao}</p>
+          </div>
+          </a>
+          `;
+          div.addEventListener("dragstart", drag);
     container.appendChild(div);
+    getProductLinkId(div);
   });
-  getProductLinkId();
 }
 
-function getProductLinkId() {
-  document.getElementById("produto-link").addEventListener("click", (e) => {
+function getProductLinkId(div) {
+  div.addEventListener("click", (e) => {
     e.preventDefault();
     const detalhes = {
       imagem: e.target.parentNode.firstElementChild.src,
@@ -82,6 +84,8 @@ function getProductLinkId() {
     showProductDetails(detalhes);
   });
 }
+
+
 
 function showProductDetails(produtos) {
   console.log(produtos);
@@ -152,13 +156,39 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
   const data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
+  const produto = ev.target.appendChild(document.getElementById(data));
+  const detalhesProduto = {
+    id: produto.id,
+  }
+  dropCarrinho(detalhesProduto);
 }
 
-function drop(ev){
-  ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
+function handleDrop(e){
+  console.log(e);
+  e.preventDefault();
+  const detalhesProduto = {
+    id: e.target.id,
+    preco: " ", //e.target.parentNode.firstElementChild.nextElementSibling.nextElementSibling.innerText,
+  }
+  console.log(detalhesProduto);
+  dropCarrinho(detalhesProduto);
 }
 
-let cart = [];
+function adicionarAoCarrinho(e){
+  const detalhesProduto = {
+    id: produto.id,
+    preco: produto.preco,
+  }
+  dropCarrinho(detalhesProduto);
+}
+
+let carrinho = [];
+
+function dropCarrinho(produto){
+  document.getElementById("quantidade-carrinho").innerText = parseInt(document.getElementById("quantidade-carrinho").innerText) + 1;
+  carrinho.push(produto);
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  console.log(carrinho);
+}
+
+

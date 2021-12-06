@@ -47,8 +47,6 @@ header {
   padding-right: 15px;
 }
 
-
-
 h1 {
   padding-left: 5vh;
   padding-top: 5vh;
@@ -60,7 +58,7 @@ h1 {
 h2 {
   padding-left: 5vh;
   padding-top: 5vh;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   color: white;
   font-size: 10vh;
 }
@@ -78,7 +76,7 @@ li a:hover {
   backface-visibility: hidden;
 }
 
-.produtos {
+.home {
   font-weight: bold;
   color: #be935f;
   border-bottom: 2px solid #be935f;
@@ -115,7 +113,7 @@ button:hover {
   outline: none;
 }
 
-.categorias-label{
+.categorias-label {
   font-family: "Noto Serif Display", serif;
   font-size: 2.2vh;
   color: white;
@@ -123,7 +121,7 @@ button:hover {
   padding-left: 10px;
 }
 
-select{
+select {
   font-family: "Noto Serif Display", serif;
   font-size: 2.2vh;
   color: #be935f;
@@ -134,7 +132,7 @@ select{
   padding-left: 10px;
 }
 
-.produtos-container{
+.produtos-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -146,7 +144,6 @@ select{
   flex-flow: row wrap;
   justify-content: space-between;
   padding: 5vh;
-
 }
 
 .produtos-card img {
@@ -175,20 +172,20 @@ select{
   border-width: 2px;
   border-radius: 10px;
   background-color: white;
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 
-.link-produto img{
-  transition: transform .5s ease;
+.link-produto img {
+  transition: transform 0.5s ease;
   border-radius: 10px;
 }
 
-.link-produto img:hover{
+.link-produto img:hover {
   cursor: pointer;
   transform: scale(1.5);
 }
 
-.link-produto a:hover{
+.link-produto a:hover {
   color: #be935f;
   font-weight: bold;
   -webkit-backface-visibility: hidden;
@@ -197,7 +194,7 @@ select{
   backface-visibility: hidden;
 }
 
-.price{
+.price {
   font-family: "Noto Serif Display", serif;
   font-size: 2.2vh;
   color: white;
@@ -207,21 +204,11 @@ select{
   text-align: center;
 }
 
-.descricao-hide{
-  display: none;
-}
-
-.btn-comprar{
-  font-family: "Noto Serif Display", serif;
+.quantidade {
+  font-family: "Outfit", sans-serif;
   font-size: 2.2vh;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  background-color: #be935f;
+  color: #142427;
   text-align: center;
-  padding: 5px;
-  margin-top: 2vh;
-  transition: transform .2s;
 }
 
 .animation {
@@ -232,7 +219,7 @@ select{
   -ms-animation: fadeIn 2s;
 }
 
-.product-details{
+.product-details {
   background-color: white;
   width: 50%;
   height: 75%;
@@ -243,23 +230,23 @@ select{
   border-radius: 10px;
 }
 
-.produto-nome{
-  font-family: 'Outfit', sans-serif;
+.produto-nome {
+  font-family: "Outfit", sans-serif;
   padding-bottom: 2vh;
 }
 
-#product-details-image:hover{
+#product-details-image:hover {
   transform: scale(1.5);
 }
 
-#product-details-image{
+#product-details-image {
   width: 50%;
   height: 50%;
   border-radius: 10px;
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
 }
 
-.product-details-container{
+.product-details-container {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -268,15 +255,15 @@ select{
   padding-bottom: 5vh;
 }
 
-#product-details-name{
-  font-family: 'Outfit', sans-serif;
+#product-details-name {
+  font-family: "Outfit", sans-serif;
   font-size: 2.2vh;
   color: white;
   text-align: center;
 }
 
-.product-details-container p{
-  font-family: 'Outfit', sans-serif;
+.product-details-container p {
+  font-family: "Outfit", sans-serif;
   font-size: 2vh;
   color: black;
   text-align: center;
@@ -284,10 +271,10 @@ select{
   width: 500px;
 }
 
-#product-details-price{
+#product-details-price {
   display: flex;
   justify-content: center;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   font-size: 2.2vh;
   color: white;
   border: #3c7264 2px solid;
@@ -297,15 +284,15 @@ select{
   width: 50px;
 }
 
-#product-details-name{
+#product-details-name {
   font-family: "Noto Serif Display", serif;
   font-size: 2.2vh;
   color: #142427;
   text-align: center;
 }
 
-.close-details{
-  font-size:3.5vh;
+.close-details {
+  font-size: 3.5vh;
   font-weight: 700;
   position: absolute;
   right: 20px;

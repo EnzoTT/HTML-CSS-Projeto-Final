@@ -134,7 +134,14 @@ select{
   padding-left: 10px;
 }
 
-.produtos-container {
+.produtos-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-top: 5vh;
+}
+
+.produtos-card {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -142,7 +149,7 @@ select{
 
 }
 
-.produtos-container img {
+.produtos-card img {
   width: 30vh;
   height: 30vh;
   margin: 2vh;
