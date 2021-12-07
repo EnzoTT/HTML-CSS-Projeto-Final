@@ -2,6 +2,7 @@ window.onload = () => {
   fetchCategoryData();
   fetchProductData();
 };
+let productId = 1;
 
 //Categoria
 const categoryForm = document.getElementById("category-form");
@@ -206,11 +207,7 @@ function generateProductTable(table, data) {
     let row = table.insertRow();
     for (key in element) {
       let th = document.createElement("th");
-      let text = document.createTextNode(
-        element[key].length > 10
-          ? element[key].substring(0, 10) + "..."
-          : element[key]
-      );
+      let text = document.createTextNode(element[key]);
       if (key === "preco") {
         const price = currencyFormatter(element[key]);
         text = document.createTextNode(price);
@@ -220,19 +217,36 @@ function generateProductTable(table, data) {
     }
     let td = document.createElement("td");
     row.appendChild(td);
-    td.innerHTML = `<a onClick="editProductSubmit()" id='config'>Editar</a>
+    td.innerHTML = `<a onClick="openModalEdit(this)" id='config'>Editar</a>
     <a onClick="deleteProduct(this);" id='config'>Deletar</a>`;
   }
 }
-
-function openModalEdit() {
+//Editar produtos
+function openModalEdit(td) {
   mountSelectEdit(categorysData);
+  selectedRow = td.parentElement.parentElement;
+  productId = selectedRow.cells[0].innerHTML;
+  document.getElementById("productCodeEdit").value =
+    selectedRow.cells[1].innerHTML;
+  document.getElementById("category-select-edit").value =
+    selectedRow.cells[2].innerHTML;
+  document.getElementById("productNameEdit").value =
+    selectedRow.cells[3].innerHTML;
+  document.getElementById("ProductWeightEdit").value =
+    selectedRow.cells[7].innerHTML;
+  document.getElementById("productImageEdit").value =
+    selectedRow.cells[6].innerHTML;
+  document.getElementById("productDescriptionEdit").value =
+    selectedRow.cells[4].innerHTML;
+  document.getElementById("productPriceEdit").value =
+    selectedRow.cells[5].innerHTML.replace(/[^0-9,]*/g, "").replace(",", ".");
+
   document.getElementById("form-modal-edit").style.display = "flex";
 }
 
 function openModal() {
-    mountSelect(categorysData);
-    document.getElementById("form-modal").style.display = "flex";
+  mountSelect(categorysData);
+  document.getElementById("form-modal").style.display = "flex";
 }
 
 function closeModal() {
@@ -241,9 +255,9 @@ function closeModal() {
   resetProductForm();
 }
 
-function mountSelectEdit(categorias){
+function mountSelectEdit(categorias) {
   const select = document.getElementById("category-select-edit");
-  for(let categoria of categorias){
+  for (let categoria of categorias) {
     let option = document.createElement("option");
     option.value = categoria.id;
     option.text = categoria.nome;
@@ -282,7 +296,6 @@ function resetProductForm() {
 function onProductFormSubmit() {
   if (isValidProductForm()) {
     let formData = readProductFormData();
-    console.log(formData);
     const KEY = "xc6iPDgo3w";
     const COMANDO = "produto";
     const OPCAO = "inserir";
@@ -304,22 +317,16 @@ function onProductFormSubmit() {
   }
 }
 
-
-
 function editProductSubmit() {
-  openModalEdit();
   if (isValidProductForm()) {
-    let formData = readProductFormData();
-    console.log('to no edit');
-    const CODIGO = 11;
-    const ID = 910;
+    let formData = readProductFormDataToEdit();
+    console.log("formData", formData);
+    console.log(productId)
     const KEY = "xc6iPDgo3w";
     const COMANDO = "produto";
     const OPCAO = "alterar";
     const FORMATO = "json";
-    const request = `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}&codigo=${CODIGO}&nome=${formData["product-name"]}&categoria=${formData["product-category"]}&descricao=${formData["product-description"]}&preco=${formData["product-price"]}&imagem=${formData["product-image"]}&peso=${formData["product-weight"]}&codigo=${formData["product-code"]}&f=${FORMATO}`;
-    console.log(request);
-    console.log('fetch edit');
+    const request = `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${productId}&nome=${formData["product-name"]}&categoria=${formData["product-category"]}&descricao=${formData["product-description"]}&preco=${formData["product-price"]}&imagem=${formData["product-image"]}&peso=${formData["product-weight"]}&codigo=${formData["product-code"]}&f=${FORMATO}`;
     fetch(request)
       .then((response) => response.json())
       .then((data) => {
@@ -332,8 +339,6 @@ function editProductSubmit() {
           alert("Erro ao editar produto! " + data.mensagem);
         }
       });
-    closeModalEdit();
-    resetForm();
   }
 }
 
@@ -351,14 +356,37 @@ function readProductFormData() {
   return formData;
 }
 
+function readProductFormDataToEdit() {
+  let formData = {};
+  formData["product-name"] = document.getElementById("productNameEdit").value;
+  formData["product-code"] = document.getElementById("productCodeEdit").value;
+  formData["product-price"] = document.getElementById("productPriceEdit").value;
+  formData["product-weight"] =
+    document.getElementById("ProductWeightEdit").value;
+  formData["product-image"] = document.getElementById("productImageEdit").value;
+  formData["product-description"] = document.getElementById(
+    "productDescriptionEdit"
+  ).value;
+  formData["product-category"] = document.getElementById(
+    "category-select-edit"
+  ).value;
+  return formData;
+}
+
 function isValidProductForm() {
   if (
-    document.getElementById("productName").value !== "" &&
-    document.getElementById("productCode").value !== "" &&
-    document.getElementById("productPrice").value !== "" &&
-    document.getElementById("ProductWeight").value !== "" &&
-    document.getElementById("productImage").value !== "" &&
-    document.getElementById("category-select").value !== ""
+    (document.getElementById("productName").value !== "" &&
+      document.getElementById("productCode").value !== "" &&
+      document.getElementById("productPrice").value !== "" &&
+      document.getElementById("ProductWeight").value !== "" &&
+      document.getElementById("productImage").value !== "" &&
+      document.getElementById("category-select").value !== "") ||
+    (document.getElementById("productNameEdit").value !== "" &&
+      document.getElementById("productCodeEdit").value !== "" &&
+      document.getElementById("productPriceEdit").value !== "" &&
+      document.getElementById("ProductWeightEdit").value !== "" &&
+      document.getElementById("productImageEdit").value !== "" &&
+      document.getElementById("category-select-edit").value !== "")
   ) {
     return true;
   }
