@@ -115,6 +115,30 @@ button:hover {
   -ms-animation: fadeIn 2s;
 }
 
+.tabela-pedidos table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid white;
+  margin-top: 20px;
+}
+
+.tabela-pedidos td {
+  border: 1px solid white;
+  text-align: left;
+  padding: 10px;
+  color: white;
+}
+.tabela-pedidos th {
+  font-weight: 700;
+  text-align: left;
+  padding: 15px;
+  color: white;
+}
+tr:nth-child(even) {
+  background-color: #be935f;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;

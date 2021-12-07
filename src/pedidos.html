@@ -49,7 +49,22 @@
           </li>
         </ul>
       </header>
+      <div class="pedidos">
+        <h2>Pedidos</h2>
+      </div>
+      <div class="buscar pedidos">
+        <label for="numero-pedido">Encontre aqui o seu pedido</label>
+        <input type="text" placeholder="Numero do pedido" id="numero-pedido" />
+        <button onclick="buscaPedido(event)">Buscar</button>
+
+        <div class="tabela-pedidos">
+          <table id="tabela-pedidos">
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
       <p>.</p>
     </div>
+    <script src="./scripts/pedidos.js"></script>
   </body>
 </html>
