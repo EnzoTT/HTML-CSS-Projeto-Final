@@ -1,111 +1,102 @@
+let cartItems = {};
+let quatidadeItems = 0;
 window.addEventListener("load", () => {
-  if (localStorage.hasOwnProperty("carrinho")) {
-    let items = JSON.parse(localStorage.getItem("carrinho"));
-    console.log(items);
-    buscaItens(items);
+  if (localStorage.hasOwnProperty("cartItems")) {
+    cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    buscaItens(cartItems);
   }
 });
 
 function buscaItens(items) {
-  let itens = [];
-  items.forEach((item) => {
+  let itens = Object.keys(items);
+  itens.forEach((item) => {
     const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
     const SAIDA = "json";
     const COMANDO = "produto";
     const OPCAO = "listar";
-    const URL = `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&id=${item.id}`;
+    const URL = `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&id=${item}`;
     fetch(URL)
       .then((response) => response.json())
       .then((data) => {
-        itens.push(data.dados[0]);
-        showCartProducts(data.dados[0], itens);
+        cartItems[item].nome = data.dados[0].nome;
+        cartItems[item].preco = data.dados[0].preco;
+        cartItems[item].imagem = data.dados[0].imagem;
+
+        showCartProducts(cartItems, item);
+        console.log(cartItems);
       });
-  });
-  document.getElementById("quantidade-carrinho").innerHTML = items.length;
+    });
+
+  document.getElementById("quantidade-carrinho").innerHTML = quatidadeItemsNoCarrinho();
 }
 
-function aumentaQuantidade(id) {
-  let itens = JSON.parse(localStorage.getItem("carrinho"));
-  let newItems = itens.filter((item) => {
-    return item.id != id;
-  });
-  newItems.push({ id: id });
-  localStorage.setItem("carrinho", JSON.stringify(newItems));
+function quatidadeItemsNoCarrinho(){
+  let total = 0;
+  Object.keys(cartItems).forEach(item=>{
+    total = total + cartItems[item].quantidade
+  })
+  return total
+}
+
+function addItem(item){
+  let id = item.parentElement.parentElement.id
+  let cart = JSON.parse(localStorage.getItem("cartItems"))
+  cart[id].quantidade++
+  localStorage.setItem("cartItems", JSON.stringify(cart))
   window.location.reload();
 }
 
-function diminuiQuantidade(id, quantidade) {
-  let itens = JSON.parse(localStorage.getItem("carrinho"));
-  let newItems = itens.filter((item) => {
-    return item.id != id;
-  });
-  localStorage.setItem("carrinho", JSON.stringify(newItems));
+function removeItem(item){
+  let id = item.parentElement.parentElement.id
+  let cart = JSON.parse(localStorage.getItem("cartItems"))
+  cart[id].quantidade--
+  if(cart[id].quantidade===0){
+   delete cart[id]
+  }
+  localStorage.setItem("cartItems", JSON.stringify(cart))
   window.location.reload();
 }
 
-function removeItem(id) {
-  let items = JSON.parse(localStorage.getItem("carrinho"));
-  let newItems = items.filter((item) => {
-    return item.id != id;
-  });
-  localStorage.setItem("carrinho", JSON.stringify(newItems));
+function deleteItem(item){
+  let id = item.parentElement.parentElement.id
+  let cart = JSON.parse(localStorage.getItem("cartItems"));
+  delete cart[id]
+  localStorage.setItem("cartItems", JSON.stringify(cart))
   window.location.reload();
 }
 
-function showCartProducts(data, itens) {
-  let quantidadeItens = {};
-
+function showCartProducts(data, item) {
   const container = document.getElementById("produtos-container");
   console.log(data);
   let div = document.createElement("div");
-  div.classList.add("produtos-card");
+  div.className = "item-produto";
+  div.id = data[item].id;
+
   div.innerHTML = `
-    <a class="link-produto" id="${data.id}">
-    <img src="${data.imagem}" alt="${
-    data.nome
-  }" class="imagem-produto" id="imagem-produto">
-    <div class="info">
-      <h3 id="nome" class="produto-nome">${data.nome}</h3>
-      <p class="price" id="price">R$ ${data.preco}</p>
-      <p class="quantidade" id="quantidade">Quantidade: ${quantidadeItem(
-        data.nome,
-        itens
-      )}</p> 
+    <img src='${data[item].imagem}'>
+    <h1>${data[item].nome}</h1>
+    <span> R$${data[item].preco}</span>
+    <div class='item-button'>
+    <button onClick="removeItem(this)">-</button>
+    <span>${data[item].quantidade}</span>
+    <button onClick="addItem(this)">+</button>
+    <button class='remove-button' onClick="deleteItem(this)">Remover</button>
     </div>
-    <div> 
-      <button class="+" id="aumentar" >+</button>
-      <button class="-" id="diminuir" >-</button>
-    </div>
-    <div> 
-      <button class="btn-remove" id="btn-remove">Remover</button>
-    </div>
-   </a>
     `;
   container.appendChild(div);
 
-  document.getElementById("btn-remove").addEventListener("click", () => {
-    removeItem(data.id);
-  });
-
-  document.getElementById("aumentar").addEventListener("click", () => {
-    aumentaQuantidade(data.id);
-  });
-
-  document.getElementById("diminuir").addEventListener("click", () => {
-    diminuiQuantidade(data.id, quantidadeItem(data.nome, itens));
-  });
-
-  function quantidadeItem(nomeItem, itens) {
-    let quantidade = 0;
-    itens.forEach((item) => {
-      if (item.nome == nomeItem) {
-        quantidade++;
-      }
-    });
-    return quantidade;
-  }
+  document.getElementById('total-price').innerHTML = `<p>Valor total: R$ ${precoTotal().toFixed(2)}</p>`
 }
 
+function precoTotal(){
+  let total = 0;
+  Object.keys(cartItems).forEach(item=>{
+    total = total + (cartItems[item].quantidade*cartItems[item].preco)
+  })
+  return total
+}
+
+//Funcoes de finalização de pedido
 function buscaCEP() {
   let cep = document.getElementById("cep").value;
   let url = `https://viacep.com.br/ws/${cep}/json/`;
@@ -141,8 +132,8 @@ function finalizarPedido(event) {
   let uf = document.getElementById("uf").value;
   let numero = document.getElementById("numero").value;
   let complemento = document.getElementById("complemento").value;
-  let items = JSON.parse(localStorage.getItem("carrinho"));
-  let itens = [];
+  let items = JSON.parse(localStorage.getItem("cartItems"));
+
 
   const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
   const SAIDA = "json";
@@ -167,12 +158,12 @@ function finalizarPedido(event) {
     .then((data) => {
       ID_PEDIDO = data.dados.id;
       console.log(data);
-      if(data.erro == 0){
+      if (data.erro == 0) {
         requisicao_itens(ID_PEDIDO, items);
       }
     });
-  
-    let pedido = {
+
+  let pedido = {
     nome: nome,
     cpf: cpf,
     cep: cep,
@@ -190,15 +181,17 @@ function requisicao_itens(ID_PEDIDO, items) {
   const OPCAO = "inserir";
 
   let requisicao = { method: "POST" };
-  items.forEach((item) => {
+  Object.keys(items).forEach((item) => {
     console.log(item);
-    
-  const URL = `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&pedido=${ID_PEDIDO}&qtd=${1}&produto=${item.id}`;
-  console.log(URL);
-  fetch(URL, requisicao)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    });
+
+    const URL = `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}&pedido=${ID_PEDIDO}&qtd=${items[item].quantidade}&produto=${
+      item
+    }`;
+    console.log(URL);
+    fetch(URL, requisicao)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
   });
 }

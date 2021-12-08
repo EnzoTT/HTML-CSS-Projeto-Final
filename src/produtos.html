@@ -33,7 +33,7 @@
             <a href="./index.html" >Home</a>
           </li>
           <li>
-            <a href="./produtos.html" class="produtos">Produtos</a>
+            <a href="./produtos.html" class="home">Produtos</a>
           </li>
           <li>
             <a href="./pedidos.html">Pedidos</a>
@@ -48,14 +48,15 @@
             <a href="./administracao.html">Administração</a>
           </li>
         </ul>
-        <div ondragover="allowDrop(event)" ondrop="drop(event)" id="carrinho">
+        <div ondrop="drop(event)" ondragover="allowDrop(event)">
           <a href="carrinho.html"
             ><img
               src="./img/icone_carrinho.png"
               alt=""
               class="carrinho"
+              id="carrinho"
             />
-            <p id="quantidade-carrinho">0</p>
+            <p id="quantidade-carrinho"></p>
           </a>
         </div>
       </header>
@@ -85,6 +86,7 @@
       </div>
       <p>.</p>
     </div>
+
     <script src="./scripts/produtos.js"></script>
   </body>
 </html>

@@ -185,7 +185,7 @@ select{
 
 .link-produto img:hover{
   cursor: pointer;
-  transform: scale(1.5);
+  transform: scale(1.1);
 }
 
 .link-produto a:hover{
@@ -199,6 +199,7 @@ select{
 
 .price{
   font-family: "Noto Serif Display", serif;
+  padding: 5px;
   font-size: 2.2vh;
   color: white;
   border: #3c7264 2px solid;

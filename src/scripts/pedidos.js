@@ -1,8 +1,29 @@
+window.onload = function () {
+  populaTabelaPedidos()
+}
+function clearTable(){
+  document.getElementById('tabela-pedidos').innerHTML = `
+  <th>ID</th>
+  <th>Data</th>
+  <th>Nome</th>
+  <th>CPF</th>
+  <th>CEP</th>
+  <th>Rua</th>
+  <th>Numero</th>
+  <th>Complemento</th>
+  <th>Bairro</th>
+  <th>Cidade</th>
+  <th>UF</th>
+  <tbody></tbody>
+  `
+}
 function buscaPedido(e) {
+  clearTable()
   e.preventDefault();
   let pedido = document.getElementById("numero-pedido").value;
   if (pedido == "") {
     alert("Digite um pedido para buscar");
+    populaTabelaPedidos()
     return false;
   }
 
@@ -16,27 +37,50 @@ function buscaPedido(e) {
     .then((response) => response.json())
     .then((data) => {
       const pedidos = data.dados;
-      console.log(data);
       pedidos.forEach((pedidoBuscar) => {
         if (pedidoBuscar.id == pedido) {
           console.log("achou");
           generateProductTableHead(
             document.getElementById("tabela-pedidos"),
             Object.keys(pedidoBuscar),
-            pedidoBuscar
           );
+          geraTabelaPedido(pedidoBuscar);
+
         }
       });
     });
 }
 
-function generateProductTableHead(table, data, pedidoBuscar) {
+
+function populaTabelaPedidos() {
+  clearTable()
+  const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
+  const SAIDA = "json";
+  const COMANDO = "pedido";
+  const OPCAO = "listar";
+  const URL = `http://loja.buiar.com/?key=${KEY}&f=${SAIDA}&c=${COMANDO}&t=${OPCAO}`;
+  console.log(URL);
+  fetch(URL)
+    .then((response) => response.json())
+    .then((data) => {
+      const pedidos = data.dados;
+      console.log(data);
+      pedidos.forEach((pedidoBuscar) => {
+          console.log("achou");
+          generateProductTableHead(
+            document.getElementById("tabela-pedidos"),
+            Object.keys(pedidoBuscar),
+          );
+        geraTabelaPedido(pedidoBuscar);
+
+      });
+    });
+}
+
+function generateProductTableHead(table, data) {
   console.log(data);
   let thead = table.createTHead();
-  let row = thead.insertRow();
   for (let key of data) {
-    let th = document.createElement("th");
-    let text = document.createTextNode(key);
     if (key === "id") {
       text = document.createTextNode("ID ");
     } else if (key === "nome") {
@@ -54,10 +98,7 @@ function generateProductTableHead(table, data, pedidoBuscar) {
     } else if (key === "bairro") {
       text = document.createTextNode("Bairro ");
     }
-    th.appendChild(text);
-    row.appendChild(th);
   }
-  geraTabelaPedido(pedidoBuscar);
 }
 
 function geraTabelaPedido(pedido) {

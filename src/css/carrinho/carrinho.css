@@ -15,7 +15,7 @@ body {
 }
 
 li,
-a{
+a {
   font-family: "Noto Serif Display", serif;
   font-size: 2.2vh;
   text-decoration: none;
@@ -136,6 +136,8 @@ select {
   flex-wrap: wrap;
   justify-content: space-around;
   padding-top: 5vh;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .produtos-card {
@@ -302,7 +304,7 @@ select {
   font-family: "Noto Serif Display", serif;
 }
 
-.dados-comprador{
+.dados-comprador {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
@@ -312,7 +314,7 @@ select {
   width: 50%;
 }
 
-.dados-comprador button{
+.dados-comprador button {
   font-family: "Outfit", sans-serif;
   font-size: 2.2vh;
   color: white;
@@ -327,7 +329,7 @@ select {
   align-items: center;
 }
 
-.dados-comprador label{
+.dados-comprador label {
   font-family: "Outfit", sans-serif;
   font-size: 2.2vh;
   color: white;
@@ -335,7 +337,7 @@ select {
   padding-left: 10px;
 }
 
-.dados-comprador a{
+.dados-comprador a {
   font-family: "Outfit", sans-serif;
   font-size: 2.2vh;
   color: #be935f;
@@ -343,14 +345,13 @@ select {
   padding-left: 10px;
 }
 
-.buscar-cep{
+.buscar-cep {
   cursor: pointer;
 }
 
-::placeholder{
+::placeholder {
   opacity: 0.5;
 }
-
 
 @keyframes fadeIn {
   0% {
@@ -395,4 +396,79 @@ select {
   100% {
     opacity: 1;
   }
+}
+
+.item-produto {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+
+.item-produto img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.item-produto h1 {
+  color: #142427;
+  font-size: 40px;
+  padding: 0px;
+}
+
+.item-produto span {
+  color: #142427;
+  font-size: 30px;
+  padding: 0px;
+}
+.item-button button {
+  border: none;
+  background-color: #be935f;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.item-button button:hover {
+  opacity: 0.8;
+}
+
+.item-button .remove-button {
+  font-size: 20px;
+  width: 100px;
+
+  border-radius: 5px;
+}
+
+#quantidade-carrinho {
+  color: #142427;
+  font-weight: bold;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+#total-price {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+#finalizar{
+  color: white;
+  background-color: #be935f;
+  padding: 10px;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 30px;
 }

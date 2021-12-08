@@ -53,12 +53,22 @@
         <h2>Pedidos</h2>
       </div>
       <div class="buscar pedidos">
-        <label for="numero-pedido">Encontre aqui o seu pedido</label>
         <input type="text" placeholder="Numero do pedido" id="numero-pedido" />
-        <button onclick="buscaPedido(event)">Buscar</button>
+        <button id='buscar'onclick="buscaPedido(event)">Buscar</button>
 
         <div class="tabela-pedidos">
           <table id="tabela-pedidos">
+            <th>ID</th>
+            <th>Data</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>CEP</th>
+            <th>Rua</th>
+            <th>Numero</th>
+            <th>Complemento</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
+            <th>UF</th>
             <tbody></tbody>
           </table>
         </div>

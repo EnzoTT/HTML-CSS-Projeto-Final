@@ -1,6 +1,8 @@
 window.onload = function () {
   fetchProductData();
   getCategoria();
+  document.getElementById("quantidade-carrinho").innerText =
+    quatidadeItemsNoCarrinho();
 };
 
 function getCategoria() {
@@ -44,6 +46,14 @@ function clearScreen() {
   container.innerHTML = "";
 }
 
+function comprarItem(ev) {
+  id = ev.parentNode.parentNode.id
+  addItemToCart(id)
+
+  localStorage.setItem('cartItems', JSON.stringify(cart));
+  document.getElementById('quantidade-carrinho').innerText = quatidadeItemsNoCarrinho()
+}
+
 function showProducts(produtos) {
   const container = document.getElementById("produtos-container");
   produtos.forEach((produto) => {
@@ -53,12 +63,12 @@ function showProducts(produtos) {
       produto.nome = produto.nome.substring(0, 15) + "...";
     }
     div.innerHTML = `
-        <a class="link-produto" id="${produto.id}" draggable="true" ondragstart="drag(event)">
+        <a class="link-produto" id="${produto.id}" draggable="true" ondragstart="drag(event)" ondrop="drop(event)">
         <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto" id="imagem-produto">
         <div class="info">
             <h3 id="nome" class="produto-nome">${produto.nome}</h3>
             <p class="price" id="price">R$ ${produto.preco}</p>
-            <button class="btn-comprar">Comprar</button>
+            <button class="btn-comprar" onClick="comprarItem(this)">Comprar</button>
             <p class="descricao-hide" id="descricao">${produto.descricao}</p>
         </div>
         </a>
@@ -141,24 +151,44 @@ function changeCategoria(id) {
     });
 }
 
+let cart = JSON.parse(localStorage.getItem("cartItems")) || {};
+function productIsOnCart(id) {
+  return id in cart;
+}
+
+function addItemToCart(productId) {
+  if (productIsOnCart(productId)) {
+    cart[productId].quantidade++;
+    return;
+  }
+  cart[productId] = {
+    quantidade: 1,
+    id: productId,
+  };
+}
+
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
 function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
+  ev.dataTransfer.setData("id", ev.target.id);
 }
 
 function drop(ev) {
   ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
+  const data = ev.dataTransfer.getData("id");
+  addItemToCart(data);
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+  document.getElementById("quantidade-carrinho").innerText =
+    quatidadeItemsNoCarrinho();
 }
 
-function drop(ev){
-  ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
+function quatidadeItemsNoCarrinho() {
+  let total = 0;
+  let cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  Object.keys(cartItems).forEach((item) => {
+    total = total + cartItems[item].quantidade;
+  });
+  return total;
 }
-
-let cart = [];

@@ -1,6 +1,7 @@
 window.onload = () => {
   fetchCategoryData();
   fetchProductData();
+  document.getElementById('quantidade-carrinho').innerText = quatidadeItemsNoCarrinho()
 };
 let productId = 1;
 
@@ -453,4 +454,13 @@ function currencyFormatter(price) {
   }).format(price);
 
   return price;
+}
+
+function quatidadeItemsNoCarrinho(){
+  let total = 0;
+  let cartItems = JSON.parse(localStorage.getItem('cartItems'))
+  Object.keys(cartItems).forEach(item=>{
+    total = total + cartItems[item].quantidade
+  })
+  return total
 }
