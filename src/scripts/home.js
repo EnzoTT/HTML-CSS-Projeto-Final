@@ -47,11 +47,12 @@ function clearScreen() {
 }
 
 function comprarItem(ev) {
-  id = ev.parentNode.parentNode.id
-  addItemToCart(id)
-
-  localStorage.setItem('cartItems', JSON.stringify(cart));
-  document.getElementById('quantidade-carrinho').innerText = quatidadeItemsNoCarrinho()
+  id = ev.parentNode.parentNode.id;
+  addItemToCart(id);
+  alert("Produto adicionado ao carrinho!");
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+  document.getElementById("quantidade-carrinho").innerText =
+    quatidadeItemsNoCarrinho();
 }
 
 function showProducts(produtos) {

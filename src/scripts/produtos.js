@@ -1,7 +1,8 @@
 window.onload = function () {
   fetchProductData();
   getCategoria();
-  document.getElementById('quantidade-carrinho').innerText = quatidadeItemsNoCarrinho()
+  document.getElementById("quantidade-carrinho").innerText =
+    quatidadeItemsNoCarrinho();
 };
 
 function getCategoria() {
@@ -45,6 +46,15 @@ function clearScreen() {
   container.innerHTML = "";
 }
 
+function comprarItem(ev) {
+  id = ev.parentNode.parentNode.id;
+  addItemToCart(id);
+  alert("Produto adicionado ao carrinho!");
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+  document.getElementById("quantidade-carrinho").innerText =
+    quatidadeItemsNoCarrinho();
+}
+
 function showProducts(produtos) {
   const container = document.getElementById("produtos-container");
   produtos.forEach((produto) => {
@@ -59,7 +69,7 @@ function showProducts(produtos) {
         <div class="info">
             <h3 id="nome" class="produto-nome">${produto.nome}</h3>
             <p class="price" id="price">R$ ${produto.preco}</p>
-            <button class="btn-comprar">Comprar</button>
+            <button class="btn-comprar" onClick="comprarItem(this)">Comprar</button>
             <p class="descricao-hide" id="descricao">${produto.descricao}</p>
         </div>
         </a>
@@ -142,7 +152,7 @@ function changeCategoria(id) {
     });
 }
 
-let cart = JSON.parse(localStorage.getItem('cartItems')) || {};
+let cart = JSON.parse(localStorage.getItem("cartItems")) || {};
 function productIsOnCart(id) {
   return id in cart;
 }
@@ -150,12 +160,12 @@ function productIsOnCart(id) {
 function addItemToCart(productId) {
   if (productIsOnCart(productId)) {
     cart[productId].quantidade++;
-    return
+    return;
   }
-  cart[productId]={
-    quantidade:1,
-    id: productId
-  }
+  cart[productId] = {
+    quantidade: 1,
+    id: productId,
+  };
 }
 
 function allowDrop(ev) {
@@ -169,16 +179,17 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
   const data = ev.dataTransfer.getData("id");
-  addItemToCart(data)
-  localStorage.setItem('cartItems', JSON.stringify(cart));
-  document.getElementById('quantidade-carrinho').innerText = quatidadeItemsNoCarrinho()
+  addItemToCart(data);
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+  document.getElementById("quantidade-carrinho").innerText =
+    quatidadeItemsNoCarrinho();
 }
 
-function quatidadeItemsNoCarrinho(){
+function quatidadeItemsNoCarrinho() {
   let total = 0;
-  let cartItems = JSON.parse(localStorage.getItem('cartItems'))
-  Object.keys(cartItems).forEach(item=>{
-    total = total + cartItems[item].quantidade
-  })
-  return total
+  let cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  Object.keys(cartItems).forEach((item) => {
+    total = total + cartItems[item].quantidade;
+  });
+  return total;
 }
