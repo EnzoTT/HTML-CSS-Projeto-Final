@@ -1,7 +1,8 @@
 window.onload = () => {
   fetchCategoryData();
   fetchProductData();
-  document.getElementById('quantidade-carrinho').innerText = quatidadeItemsNoCarrinho()
+  document.getElementById("quantidade-carrinho").innerText =
+  quatidadeItemsNoCarrinho();
 };
 let productId = 1;
 
@@ -156,6 +157,7 @@ productForm.addEventListener("submit", onProductFormSubmit);
 const modalEdit = document.getElementById("form-produtos-edit");
 modalEdit.addEventListener("submit", editProductSubmit);
 
+let allProducts = [];
 function fetchProductData() {
   document.getElementById("productsTable").innerHTML = "";
   const KEY = "xc6iPDgo3w"; // usada para testes, a chave do grupo é xc6iPDgo3w
@@ -168,6 +170,7 @@ function fetchProductData() {
       console.log(data);
       const dados = Object.keys(data.dados[0]);
       generateProductTableHead(document.getElementById("productsTable"), dados);
+      allProducts = data.dados;
       generateProductTable(
         document.getElementById("productsTable"),
         data.dados
@@ -321,8 +324,6 @@ function onProductFormSubmit() {
 function editProductSubmit() {
   if (isValidProductForm()) {
     let formData = readProductFormDataToEdit();
-    console.log("formData", formData);
-    console.log(productId)
     const KEY = "xc6iPDgo3w";
     const COMANDO = "produto";
     const OPCAO = "alterar";
@@ -422,19 +423,29 @@ function deleteProduct(data) {
   }
 }
 
+function checkCategoryHasProducts(id) {
+  let bool = false;
+  allProducts.forEach((product) => {
+    if (product.categoria === id) bool = true;
+  });
+  return bool;
+}
+
 //Deletar Categoria
 function onDeleteCategory(td) {
+  row = td.parentElement.parentElement;
+  const ID = row.cells[0].innerHTML;
   if (confirm("Tem certeza que deseja deletar essa categoria ?")) {
-    row = td.parentElement.parentElement;
-    const ID = row.cells[0].innerHTML;
-    const KEY = "xc6iPDgo3w"; //chave de acesso
-    const COMANDO = "categoria";
-    const OPCAO = "remover";
-    const FORMATO = "json";
+    if (!checkCategoryHasProducts(ID)) {
+      console.log("Não tem produtos");
+      const KEY = "xc6iPDgo3w"; //chave de acesso
+      const COMANDO = "categoria";
+      const OPCAO = "remover";
+      const FORMATO = "json";
 
-    fetch(
+      fetch(
       `http://loja.buiar.com/?key=${KEY}&c=${COMANDO}&t=${OPCAO}&id=${ID}&f=${FORMATO}`
-    )
+      )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -444,6 +455,9 @@ function onDeleteCategory(td) {
           fetchCategoryData();
         }
       });
+      return
+    }
+    alert("ERRO: Essa categoria possui produtos!");
   }
 }
 
@@ -456,11 +470,11 @@ function currencyFormatter(price) {
   return price;
 }
 
-function quatidadeItemsNoCarrinho(){
+function quatidadeItemsNoCarrinho() {
   let total = 0;
-  let cartItems = JSON.parse(localStorage.getItem('cartItems'))
-  Object.keys(cartItems).forEach(item=>{
-    total = total + cartItems[item].quantidade
-  })
-  return total
+  let cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  Object.keys(cartItems).forEach((item) => {
+    total = total + cartItems[item].quantidade;
+  });
+  return total;
 }

@@ -47,7 +47,9 @@ header {
   padding-right: 15px;
 }
 
-
+.category-select{
+  margin-left: 50px;
+}
 
 h1 {
   padding-left: 5vh;

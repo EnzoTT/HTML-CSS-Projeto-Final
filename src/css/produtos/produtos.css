@@ -28,7 +28,9 @@ header {
   align-items: center;
   padding-right: 15px;
 }
-
+.category-select{
+  margin-left: 50px;
+}
 .nav-links {
   list-style: none;
 }
